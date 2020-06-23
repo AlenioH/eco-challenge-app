@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../components/Header.js';
 import Link from 'next/link';
 import { ThemeProvider } from '@chakra-ui/core';
-import { customTheme } from '@chakra-ui/core';
+import { theme } from '@chakra-ui/core';
 
 export default function Home(props) {
   return (
@@ -12,7 +12,7 @@ export default function Home(props) {
         <title>So green Home</title>
         <link rel="icon" href="/logo.png" />
       </Head>
-      <ThemeProvider theme={customTheme}>{props.children}</ThemeProvider>;
+      <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
       <Header />
       <main>
         <h1 className="welcomeH1">

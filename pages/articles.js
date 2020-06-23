@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import Head from 'next/head';
 
-export default function articles(props) {
+export default function Articles(props) {
   console.log(props.data); //array of objects = atricles
   return (
     <div>

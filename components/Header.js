@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import Modal from 'react-modal';
 
 export default function Header() {
+  Modal.setAppElement('body'); //i need this for accesability reasons so that screen reader only sees the modal when its open
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <div className="navigation">
       <ul>
@@ -22,9 +26,56 @@ export default function Header() {
         </li>
         <div className="login">
           <li>
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
+            <button onClick={() => setModalIsOpen(true)}>Login</button>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={() => setModalIsOpen(false)}
+              style={{
+                overlay: {
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%,-50%)',
+                  boxSizing: 'border-box',
+                  width: '600px',
+                  borderRadius: '5px',
+
+                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                  maxWidth: 'calc(100% - 80px)',
+                  maxHeight: 'calc(100% - 80px)',
+                },
+                content: {
+                  position: 'absolute',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  top: '40px',
+                  left: '40px',
+                  right: '40px',
+                  bottom: '40px',
+                  border: '1px solid #ccc',
+                  background: '#fff',
+                  overflow: 'auto',
+                  WebkitOverflowScrolling: 'touch',
+                  borderRadius: '4px',
+                  outline: 'none',
+                  padding: '20px',
+                },
+              }}
+            >
+              <h3>Login</h3>
+              <label forHtml="username"></label>
+              <input id="username" type="text" placeholder="username"></input>
+              <label forHtml="password"></label>
+              <input
+                id="password"
+                type="password"
+                placeholder="password"
+              ></input>
+              <button>Login</button>
+              <button onClick={() => setModalIsOpen(false)}>Close</button>
+            </Modal>
           </li>
 
           <li>
@@ -34,6 +85,7 @@ export default function Header() {
           </li>
         </div>
       </ul>
+
       <style jsx>{`
         .navigation {
           border-bottom: 2px solid black;
@@ -60,6 +112,11 @@ export default function Header() {
           text-decoration: none;
           padding: 0 3rem;
         }
+
+        button {
+          background-color: blueviolet;
+          font-family: inherit;
+        }
         .login {
           margin-left: auto;
         }
@@ -81,3 +138,4 @@ export default function Header() {
     </div>
   );
 }
+// Modal.setAppElement('#app-base');
