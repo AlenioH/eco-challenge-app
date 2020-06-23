@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/core": "^1.0.0-next.2",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",

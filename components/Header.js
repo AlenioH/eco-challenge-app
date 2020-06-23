@@ -20,18 +20,19 @@ export default function Header() {
             <a>Articles</a>
           </Link>
         </li>
+        <div className="login">
+          <li>
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </li>
 
-        <li>
-          <Link href="/login">
-            <a>Login</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/login">
-            <a>Sign up</a>
-          </Link>
-        </li>
+          <li>
+            <Link href="/login">
+              <a>Sign up</a>
+            </Link>
+          </li>
+        </div>
       </ul>
       <style jsx>{`
         .navigation {
@@ -50,12 +51,17 @@ export default function Header() {
           align-items: center;
           font-size: 1.4rem;
           font-weight: 800;
+          padding-left: 3rem;
         }
 
         li a {
           color: black;
           text-shadow: 2px 2px white;
           text-decoration: none;
+          padding: 0 3rem;
+        }
+        .login {
+          margin-left: auto;
         }
       `}</style>
       <style jsx global>{`

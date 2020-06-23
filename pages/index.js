@@ -2,16 +2,18 @@ import Head from 'next/head';
 import React from 'react';
 import Header from '../components/Header.js';
 import Link from 'next/link';
+import { ThemeProvider } from '@chakra-ui/core';
+import { customTheme } from '@chakra-ui/core';
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div className="container">
       <Head>
         <title>So green Home</title>
         <link rel="icon" href="/logo.png" />
       </Head>
+      <ThemeProvider theme={customTheme}>{props.children}</ThemeProvider>;
       <Header />
-
       <main>
         <h1 className="welcomeH1">
           Welcome to <span className="welcome">So green!</span>
@@ -94,15 +96,14 @@ export default function Home() {
           font-family: inherit;
           font-weight: 800;
           font-size: 1.2rem;
-          color: black;
+          color: whitesmoke;
           background-color: #009432;
         }
         button:hover {
-          border: 3px solid #2f3640;
-          transition: border 0.3s;
+          background-color: #2f3640;
+          transition: background-color 0.3s;
         }
       `}</style>
-
       <style jsx global>{`
         html,
         body {
