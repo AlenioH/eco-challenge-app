@@ -2,10 +2,45 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Modal from 'react-modal';
 
+const customStyle = {
+  content: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    top: '40px',
+    left: '40px',
+    right: '40px',
+    bottom: '40px',
+    border: '1px solid #ccc',
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '4px',
+    outline: 'none',
+    padding: '20px',
+  },
+  overlay: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    boxSizing: 'border-box',
+    width: '600px',
+    borderRadius: '5px',
+
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    maxWidth: 'calc(100% - 80px)',
+    maxHeight: 'calc(100% - 80px)',
+  },
+};
+
 export default function Header() {
   Modal.setAppElement('body'); //i need this for accesability reasons so that screen reader only sees the modal when its open
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [createAccount, setCreateAccount] = useState(false);
   return (
     <div className="navigation">
       <ul>
@@ -26,45 +61,17 @@ export default function Header() {
         </li>
         <div className="login">
           <li>
-            <button onClick={() => setModalIsOpen(true)}>Login</button>
+            <button onClick={() => setModalIsOpen(true)}>
+              Login or Signup
+            </button>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={() => setModalIsOpen(false)}
-              style={{
-                overlay: {
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%,-50%)',
-                  boxSizing: 'border-box',
-                  width: '600px',
-                  borderRadius: '5px',
-
-                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                  maxWidth: 'calc(100% - 80px)',
-                  maxHeight: 'calc(100% - 80px)',
-                },
-                content: {
-                  position: 'absolute',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  alignItems: 'center',
-                  top: '40px',
-                  left: '40px',
-                  right: '40px',
-                  bottom: '40px',
-                  border: '1px solid #ccc',
-                  background: '#fff',
-                  overflow: 'auto',
-                  WebkitOverflowScrolling: 'touch',
-                  borderRadius: '4px',
-                  outline: 'none',
-                  padding: '20px',
-                },
-              }}
+              style={customStyle}
             >
-              <h3>Login</h3>
+              <button className="close" onClick={() => setModalIsOpen(false)}>
+                &times;
+              </button>
               <label forHtml="username"></label>
               <input id="username" type="text" placeholder="username"></input>
               <label forHtml="password"></label>
@@ -73,15 +80,27 @@ export default function Header() {
                 type="password"
                 placeholder="password"
               ></input>
-              <button>Login</button>
-              <button onClick={() => setModalIsOpen(false)}>Close</button>
-            </Modal>
-          </li>
+              {createAccount === true ? (
+                <>
+                  {' '}
+                  <label forHtml="email"></label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="email"
+                  ></input>{' '}
+                </>
+              ) : (
+                ''
+              )}
+              <button onClick={() => setCreateAccount(!createAccount)}>
+                Login{' '}
+              </button>
 
-          <li>
-            <Link href="/login">
-              <a>Sign up</a>
-            </Link>
+              <button onClick={() => setCreateAccount(true)}>
+                Create an account
+              </button>
+            </Modal>
           </li>
         </div>
       </ul>
@@ -114,11 +133,31 @@ export default function Header() {
         }
 
         button {
-          background-color: blueviolet;
+          background-color: white;
           font-family: inherit;
+          padding: 5px;
+          border-radius: 5px;
+          margin-right: 2rem;
+          font-size: 1.2rem;
+          margin-top: 5px;
+        }
+
+        button:hover {
+          background-color: #2f3640;
+          transition: background-color 0.3s;
         }
         .login {
           margin-left: auto;
+        }
+
+        input {
+          padding: 7px;
+          border-radius: 4px;
+          margin-top: 5px;
+        }
+
+        .close {
+          align-self: flex-end;
         }
       `}</style>
       <style jsx global>{`
@@ -138,4 +177,3 @@ export default function Header() {
     </div>
   );
 }
-// Modal.setAppElement('#app-base');

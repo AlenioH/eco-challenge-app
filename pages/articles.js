@@ -4,7 +4,8 @@ import Header from '../components/Header';
 import Head from 'next/head';
 
 export default function Articles(props) {
-  console.log(props.data); //array of objects = atricles
+  // console.log(props.data); //array of objects = atricles
+
   return (
     <div>
       <Head>
