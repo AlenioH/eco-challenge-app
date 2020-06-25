@@ -123,6 +123,7 @@ export default function Header() {
           font-size: 1.4rem;
           font-weight: 800;
           padding-left: 3rem;
+          margin-bottom: 0.4rem;
         }
 
         li a {
