@@ -5,7 +5,7 @@ import Footer from '../components/Footer.js';
 import Link from 'next/link';
 
 export default function Home(props) {
-  console.log(props.dailyTips); //logs out nicely, array of objects
+  // console.log(props.dailyTips); //logs out nicely, array of objects
 
   // const randomTip =
   //   props.dailyTips[Math.floor(Math.random() * props.dailyTips.length)];
@@ -41,7 +41,7 @@ export default function Home(props) {
   const day = new Date().getDay();
   const randomOne = props.dailyTips[day % props.dailyTips.length];
 
-  console.log(randomOne); //returns an object
+  // console.log(randomOne); //returns an object
 
   return (
     <div className="container">

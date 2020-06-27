@@ -6,36 +6,25 @@ export default function Footer() {
     <div className="container">
       <ul>
         <li>
-          <Link href="https://www.instagram.com/wonder_deer/" prefetch={false}>
-            <a>
-              <img src="/insta.png" alt="instagram"></img>
-            </a>
-          </Link>
+          <a href="https://www.instagram.com/wonder_deer/">
+            <img src="/insta.png" alt="instagram"></img>
+          </a>
         </li>
 
         <li>
-          <Link
-            href="https://www.facebook.com/alena.hasslacher/"
-            prefetch={false}
-          >
-            <a>
-              <img src="/fb.png" alt="facebook"></img>
-            </a>
-          </Link>
+          <a href="https://www.facebook.com/alena.hasslacher/">
+            <img src="/fb.png" alt="facebook"></img>
+          </a>
         </li>
         <li>
-          <Link href="https://github.com/AlenioH" prefetch={false}>
-            <a>
-              <img src="/github.png" alt="github"></img>
-            </a>
-          </Link>
+          <a href="https://github.com/AlenioH">
+            <img src="/github.png" alt="github"></img>
+          </a>
         </li>
         <li>
-          <Link href="https://twitter.com/AHasslacher" prefetch={false}>
-            <a>
-              <img src="/twitter.png" alt="twitter"></img>
-            </a>
-          </Link>
+          <a href="https://twitter.com/AHasslacher">
+            <img src="/twitter.png" alt="twitter"></img>
+          </a>
         </li>
         <li className="legal">Powered by coffee and kittens. &copy; 2020</li>
       </ul>
