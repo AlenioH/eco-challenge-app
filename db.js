@@ -50,7 +50,7 @@ export async function selectUserByUsernameAndPassword(username, password) {
   const usersWithUsername = await sql`
   SELECT * FROM users WHERE username = ${username}
   `; //select from always returns an array, even if its one
-  console.log(usersWithUsername[0]);
+  // console.log(usersWithUsername[0]);
   if (usersWithUsername.length === 0) return usersWithUsername;
 
   const passwordMatches = await argon2.verify(
@@ -74,5 +74,11 @@ export async function insertSession(userId, token) {
 export async function selectSessionByToken(token) {
   return sql`
   SELECT * FROM sessions WHERE token = ${token}
+  `;
+}
+
+export async function removeSessionByToken(token) {
+  return sql`
+  DELETE FROM sessions WHERE token = ${token}
   `;
 }

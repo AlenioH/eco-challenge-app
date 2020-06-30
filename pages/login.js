@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import Link from 'next/link';
 import Header from '../components/Header';
+import Router from 'next/router';
 //moved on to API routes
 // import { serialize } from 'cookie';
 
@@ -9,6 +10,7 @@ import Header from '../components/Header';
 export default function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState('');
 
   function onSubmit(e) {
     //props.csrf token
@@ -21,8 +23,26 @@ export default function Login(props) {
       },
       body: JSON.stringify({ username, password }),
     })
-      .then((response) => console.log(response, 'fetch twerked'))
-      .catch((err) => console.log('naaah fetch no workey', err));
+      .then((response) => {
+        if (response.ok !== true) {
+          setStatus('failed log in');
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then((json) => {
+        if (json.loggedIn === true) {
+          setStatus('log in successful!');
+          // Redirect to homepage after 2 seconds
+          setTimeout(() => {
+            Router.replace('/');
+          }, 2000);
+        } else {
+          setStatus('failed log in');
+          console.log('json.loggedIn', json.loggedIn); //returns json === undefined
+        }
+      })
+      .catch(() => setStatus('Failed login'));
   }
 
   return (
@@ -42,7 +62,7 @@ export default function Login(props) {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        {props.createAccount === true ? (
+        {/* {props.createAccount === true ? (
           <>
             {' '}
             <label forHtml="email"></label>
@@ -50,8 +70,9 @@ export default function Login(props) {
           </>
         ) : (
           ''
-        )}
+        )} */}
         <button>submit</button>
+        <p>{status}</p>
         {/* <button onClick={() => setCreateAccount(!createAccount)}>
       Login{' '}
     </button> */}

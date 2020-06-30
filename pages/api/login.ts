@@ -6,10 +6,11 @@ export default async function login(req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
-  const user = await selectUserByUsernameAndPassword(username, password);
+  const users = await selectUserByUsernameAndPassword(username, password);
   console.log('query ran');
-  if (user.length === 0) {
+  if (users.length === 0) {
     console.log('denied login');
+    res.json({ loggedIn: false });
   } else {
     console.log('logged in');
 
@@ -18,7 +19,7 @@ export default async function login(req, res) {
     const maxAge = 60 * 60 * 8; //session expires after 8 hours
     //it sets cookie called 'token' which i will not be able to access from JS.....
 
-    await insertSession(user[0].id, token);
+    await insertSession(users[0].id, token);
 
     const cookie = serialize('token', token, {
       maxAge,

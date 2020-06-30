@@ -42,7 +42,24 @@ export default function Header(props) {
 
   // const [modalIsOpen, setModalIsOpen] = useState(false);
   // const [createAccount, setCreateAccount] = useState(false);
+
+  const linkList = [
+    { name: 'Home', url: '/' },
+    { name: 'Challenges', url: '/challenges' },
+    { name: 'Articles', url: '/articles' },
+  ];
+
   const [user, setUser] = useState('');
+
+  if (!user) {
+    linkList.push({ name: 'Login', url: '/login' });
+    linkList.push({ name: 'Sign up', url: '/register' });
+  } else {
+    linkList.push(
+      { name: user, url: '/profile/' + user.id }, //is of course undefined ATM, but basically works
+      { name: 'Logout', url: '/logout' },
+    );
+  }
 
   useEffect(() => {
     fetch('/api/checkLogin', {
@@ -73,15 +90,26 @@ export default function Header(props) {
       .catch((err) => {
         console.error('error fetching session', err);
       });
-  }, [user]); //[user]???
+  }, [user]); //[user]??? //it doesnt log out the user if i dont put state var as a secod param
   console.log(user);
   //as a second parameter to the useEffect function you pass in a state var you want to watch
   //in this case i don't have any state var it makes sense to watch, so leaving it empty means it will only run once
-  //if user === null, then login and signup buttons shall be displayed, otherwise user.username and a logout button
+  //if user === null, then login and signup buttons shall be displayed, otherwise username and a logout button
 
   return (
     <div className="navigation">
       <ul>
+        {linkList.map((item) => {
+          return (
+            <li key={item.url}>
+              <Link href={item.url}>
+                <a>{item.name}</a>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      {/* <ul>
         <li>
           <Link href="/">
             <a>Home</a>
@@ -113,7 +141,7 @@ export default function Header(props) {
             {user} <button>Logout</button>
           </div>
         )}
-      </ul>
+      </ul> */}
       {/* <button onClick={() => setModalIsOpen(true)}>
               Login or Signup
             </button>
