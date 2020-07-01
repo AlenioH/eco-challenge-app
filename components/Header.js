@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+// const nextCookies = import('next-cookies');
 // import Modal from 'react-modal';
 // import Form from './Form';
 
@@ -37,7 +38,7 @@ import Link from 'next/link';
 //   },
 // };
 
-export default function Header(props) {
+export default function Header() {
   // Modal.setAppElement('body'); //i need this for accesability reasons so that screen reader only sees the modal when its open
 
   // const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -50,13 +51,14 @@ export default function Header(props) {
   ];
 
   const [user, setUser] = useState('');
+  const [link, setLink] = useState('');
 
   if (!user) {
     linkList.push({ name: 'Login', url: '/login' });
     linkList.push({ name: 'Sign up', url: '/register' });
   } else {
     linkList.push(
-      { name: user, url: '/profile/' + user.id }, //is of course undefined ATM, but basically works
+      { name: user, url: '/profile/' + link }, //is of course undefined ATM, but basically works
       { name: 'Logout', url: '/logout' },
     );
   }
@@ -84,8 +86,10 @@ export default function Header(props) {
         return response.json();
       })
       .then((json) => {
-        if (json === true) {
-          setUser('Logged on as: IN PROGRESS');
+        if (json.loggedIn === true) {
+          setUser(json.username);
+
+          setLink(json.id);
         }
       })
       .catch((err) => {
@@ -265,18 +269,14 @@ export default function Header(props) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   let buffer = '';
+// export async function getInitialProps(context) {
+//   const nextCookies = (await import('next-cookies')).default;
+//   console.log(context);
+//   const { username } = nextCookies(context);
 
-//   context.req.on('data', (chunk) => {
-//     buffer += chunk;
-//   });
-//   context.req.on('end', () => {
-//     console.log(Buffer.from(buffer).toString());
-//   });
 //   return {
 //     props: {
-//       csrfToken: 'TODO: Add real token here',
+//       username,
 //     },
 //   };
 // }

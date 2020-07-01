@@ -71,11 +71,17 @@ export async function insertSession(userId, userName, token) {
   `;
 }
 
-export async function selectSessionByToken(token) {
+export async function selectSessionByTokenAndUsername(token) {
   return sql`
-  SELECT * FROM sessions WHERE token = ${token}
+  SELECT * FROM sessions WHERE token = ${token} 
   `;
 }
+
+// export async function selectSessionByTokenAndUsername(token, userName, userId) {
+//   return sql`
+//   SELECT * FROM sessions WHERE token = ${token} AND user_name = ${userName} AND user_id=${userId}
+//   `;
+// }
 
 export async function removeSessionByToken(token) {
   return sql`

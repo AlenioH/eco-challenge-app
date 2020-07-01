@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Remove the cookie
   context.res.setHeader(
     'Set-Cookie',
-    serialize('token', '', {
+    serialize('userAndToken', '', {
       maxAge: -1,
       path: '/',
     }),
