@@ -65,9 +65,9 @@ export async function selectUserByUsernameAndPassword(username, password) {
   }
 }
 
-export async function insertSession(userId, token) {
+export async function insertSession(userId, userName, token) {
   return sql`
-  INSERT INTO sessions(user_id, token) VALUES (${userId}, ${token})
+  INSERT INTO sessions(user_id, user_name, token) VALUES (${userId}, ${userName}, ${token})
   `;
 }
 

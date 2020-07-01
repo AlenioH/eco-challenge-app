@@ -3,6 +3,7 @@ exports.up = async (sql) => {
 	CREATE TABLE sessions(
     id SERIAL PRIMARY KEY, 
 	user_id VARCHAR NOT NULL, 
+	user_name VARCHAR NOT NULL,
 	token VARCHAR NOT NULL)
 	`;
 };

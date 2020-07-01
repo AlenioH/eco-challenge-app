@@ -83,8 +83,8 @@ export default function Header(props) {
         return response.json();
       })
       .then((json) => {
-        if (json === true) {
-          setUser('add the user');
+        if (json) {
+          setUser('Logged on as: IN PROGRESS');
         }
       })
       .catch((err) => {

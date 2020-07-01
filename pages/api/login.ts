@@ -14,13 +14,15 @@ export default async function login(req, res) {
   } else {
     console.log('logged in');
 
-    const token = crypto.randomBytes(24).toString('base64');
+    const token = crypto.randomBytes(24).toString('base64'); //this creates a session token
 
     const maxAge = 60 * 60 * 8; //session expires after 8 hours
     //it sets cookie called 'token' which i will not be able to access from JS.....
 
-    await insertSession(users[0].id, token);
+    //this inserts the session into the table
+    await insertSession(users[0].id, users[0].username, token);
 
+    //saving the session token in a cookie
     const cookie = serialize('token', token, {
       maxAge,
       expires: new Date(Date.now() + maxAge * 1000),
@@ -33,7 +35,7 @@ export default async function login(req, res) {
       path: '/',
       sameSite: 'lax',
     });
-    res.setHeader('Set-Cookie', cookie);
+    res.setHeader('Set-Cookie', cookie); //i guess this is the way i see it in the console afterwards
     //API resolved without sending a response for /api/login, this may result in stalled requests. => means it needs to send you some response back
     res.json({ loggedIn: true });
   }
