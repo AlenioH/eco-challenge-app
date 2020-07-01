@@ -59,6 +59,13 @@ export default function register(props) {
 }
 
 export async function getServerSideProps(context) {
+  const Tokens = await (await import('csrf')).default;
+  const tokens = new Tokens();
+  const secret = process.env.CSRF_TOKEN;
+  // const secret = tokens.secretSync();
+  console.log('secret: ', secret);
+
+  //this secret gets generated new every time which you actually dont want, so mb put it in like .env
   const { insertUser } = await import('../db');
 
   let buffer = '';
@@ -73,14 +80,22 @@ export async function getServerSideProps(context) {
       password: body.password,
       email: body.email,
     };
-    console.log(user);
-    insertUser(user)
-      .then(() => console.log('succeeded!'))
-      .catch((err) => console.error('didnt work', err));
+    const requestToken = body.csrf; //csrf is the 'name' attribute on the hidden input field
+    //only if the request token matches, will user be inserted in the db
+    console.log('requestToken: ', requestToken);
+    if (tokens.verify(secret, requestToken)) {
+      // console.log(user);
+      // console.log(body);
+      insertUser(user)
+        .then(() => console.log('succeeded!'))
+        .catch((err) => console.error('didnt work', err));
+    } else {
+      console.error('CSRF WENT WRONG');
+    }
   });
   return {
     props: {
-      csrfToken: 'TODO: Add real token here',
+      csrfToken: tokens.create(secret),
     },
   };
 }

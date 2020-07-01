@@ -2,19 +2,23 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Link from 'next/link';
+import OneChallenge from './[id]';
 
-export default function oneChallenge(props) {
+export default function Challenges() {
   return (
     <div>
       <Head />
       <Header />
       <div className="container">
-  <h1>{props.name}</h1>
-        {/* <img></img>  SOME PICS*/}
-        <p>Category</p>
-        <p>Length</p>
-        <p>Description</p>
-        <button>Challenge accepted!</button>
+        <Link href="/challenges/1">
+          <a>
+            <OneChallenge
+              name={'use bike instead of car for one week!'}
+              id={1}
+            />
+          </a>
+        </Link>
       </div>
       <Footer />
       <style jsx>{`

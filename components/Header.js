@@ -84,7 +84,7 @@ export default function Header(props) {
       })
       .then((json) => {
         if (json === true) {
-          setUser('TODO: add the user');
+          setUser('add the user');
         }
       })
       .catch((err) => {
