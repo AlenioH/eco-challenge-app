@@ -10,7 +10,17 @@ export default function Logout() {
       <Head>
         <title>Logged out</title>
       </Head>
-      Successfully Logged Out
+      <h3>
+        You are successfully logged out! Hope to see you soon again {'\u2728'}{' '}
+        <span role="img" aria-label="unicorn">
+          🦄
+        </span>
+      </h3>
+      <style jsx>{`
+        h3 {
+          margin-top: 8rem;
+        }
+      `}</style>
     </div>
   );
 }

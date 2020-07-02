@@ -9,7 +9,7 @@ export default function Articles(props) {
   return (
     <div>
       <Head>
-        <title>So green Home</title>
+        <title>So green Articles</title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <Header />

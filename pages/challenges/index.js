@@ -8,7 +8,10 @@ import OneChallenge from './[id]';
 export default function Challenges() {
   return (
     <div>
-      <Head />
+      <Head>
+        <title>So green Challenges</title>
+        <link rel="icon" href="/logo.png" />
+      </Head>
       <Header />
       <div className="container">
         <Link href="/challenges/1">

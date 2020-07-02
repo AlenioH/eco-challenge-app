@@ -6,10 +6,13 @@ import Footer from '../../components/Footer';
 export default function oneChallenge(props) {
   return (
     <div>
-      <Head />
+      <Head>
+        <title>So green Challenge</title>
+        <link rel="icon" href="/logo.png" />
+      </Head>
       <Header />
       <div className="container">
-  <h1>{props.name}</h1>
+        <h1>{props.name}</h1>
         {/* <img></img>  SOME PICS*/}
         <p>Category</p>
         <p>Length</p>

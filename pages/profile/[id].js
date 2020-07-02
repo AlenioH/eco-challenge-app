@@ -6,7 +6,10 @@ import Footer from '../../components/Footer';
 export default function profilePage() {
   return (
     <div>
-      <Head />
+      <Head>
+        <title>Profile page</title>
+        <link rel="icon" href="/logo.png" />
+      </Head>
       <Header />
       <div className="container">
         <h1>Username</h1>

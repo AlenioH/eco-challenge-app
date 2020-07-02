@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Router from 'next/dist/next-server/lib/router/router';
 // const nextCookies = import('next-cookies');
 // import Modal from 'react-modal';
 // import Form from './Form';
@@ -53,15 +54,15 @@ export default function Header() {
   const [user, setUser] = useState('');
   const [link, setLink] = useState('');
 
-  if (!user) {
-    linkList.push({ name: 'Login', url: '/login' });
-    linkList.push({ name: 'Sign up', url: '/register' });
-  } else {
-    linkList.push(
-      { name: user, url: '/profile/' + link }, //is of course undefined ATM, but basically works
-      { name: 'Logout', url: '/logout' },
-    );
-  }
+  // if (!user) {
+  //   linkList.push({ name: 'Login', url: '/login' });
+  //   linkList.push({ name: 'Sign up', url: '/register' });
+  // } else {
+  //   linkList.push(
+  //     { name: 'Logged in as ' + user, url: '/profile/' + link }, //is of course undefined ATM, but basically works
+  //     { name: 'Logout', url: '/logout' },
+  //   );
+  // }
 
   useEffect(() => {
     fetch('/api/checkLogin', {
@@ -103,7 +104,7 @@ export default function Header() {
 
   return (
     <div className="navigation">
-      <ul>
+      {/* <ul>
         {linkList.map((item) => {
           return (
             <li key={item.url}>
@@ -113,8 +114,8 @@ export default function Header() {
             </li>
           );
         })}
-      </ul>
-      {/* <ul>
+      </ul> */}
+      <ul>
         <li>
           <Link href="/">
             <a>Home</a>
@@ -132,21 +133,27 @@ export default function Header() {
         </li>
         {!user ? (
           <div className="login">
-            <li>
-              <Link href="/login">
-                <a>Login </a>
-              </Link>
-              <Link href="register">
-                <a>Sign up</a>
-              </Link>
-            </li>
+            <Link href="/login">
+              <a>Login </a>
+            </Link>
+            <Link href="register">
+              <a>Sign up</a>
+            </Link>
           </div>
         ) : (
-          <div>
-            {user} <button>Logout</button>
+          <div className="login">
+            <Link href={'/profile/' + link}>
+              <a>
+                {' '}
+                Logged in as <span className="username">{user}</span>
+              </a>
+            </Link>
+            <Link href="/logout">
+              <a>Logout</a>
+            </Link>
           </div>
         )}
-      </ul> */}
+      </ul>
       {/* <button onClick={() => setModalIsOpen(true)}>
               Login or Signup
             </button>
@@ -239,6 +246,24 @@ export default function Header() {
         }
         .login {
           margin-left: auto;
+          display: flex;
+          flex-direction: column;
+          padding: 0.2rem;
+        }
+        .login a {
+          text-decoration: none;
+          color: white;
+          font-size: 1.2rem;
+          padding: 0.3rem;
+          border: 1px solid white;
+          border-radius: 5px;
+        }
+        .username {
+          text-decoration: underline;
+        }
+        .login a:hover {
+          background-color: #2f3640;
+          transition: background-color 0.3s;
         }
 
         input {

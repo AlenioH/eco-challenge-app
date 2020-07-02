@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import Header from '../components/Header';
+import Head from 'next/head';
 
 export default function Register(props) {
   const [username, setUsername] = useState('');
@@ -52,34 +53,74 @@ export default function Register(props) {
   }
   return (
     <div>
+      <Head>
+        <title>So green sign up</title>
+        <link rel="icon" href="/logo.png" />
+      </Head>
       <Header />
-      <form method="POST" onSubmit={onSubmit}>
-        <input
-          name="username"
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-        ></input>
+      <div className="formContainer">
+        <h3>Sign up</h3>
+        <form method="POST" onSubmit={onSubmit}>
+          <input
+            name="username"
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          ></input>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <input
-          name="email"
-          type="email"
-          placeholder="example@example.com"
-          onChange={(e) => setEmail(e.target.value)}
-        ></input>
-        {/* <input type="hidden" name="csrf"></input> */}
+          <input
+            name="password"
+            type="password"
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+          ></input>
+          <input
+            name="email"
+            type="email"
+            placeholder="example@example.com"
+            onChange={(e) => setEmail(e.target.value)}
+          ></input>
+          {/* <input type="hidden" name="csrf"></input> */}
 
-        <button>submit</button>
-        <p>{status}</p>
-      </form>
+          <button>submit</button>
+          <p>{status}</p>
+        </form>
+      </div>
       <style jsx>{`
+        .formContainer {
+          margin-top: 8rem;
+          display: flex;
+          flex-direction: column;
+          width: 50%;
+          margin-left: auto;
+          margin-right: auto;
+          align-items: center;
+          border: 4px double white;
+          border-radius: 5px;
+        }
         form {
-          margin-top: 10rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+        }
+        input {
+          padding: 0.5rem;
+          margin: 0.5rem;
+          border-radius: 5px;
+        }
+
+        button {
+          padding: 0.5rem;
+          border-radius: 5px;
+          font-weight: 800;
+          font-size: 1rem;
+          color: whitesmoke;
+          background-color: #009432;
+          margin-top: 1rem;
+        }
+        button:hover {
+          background-color: #2f3640;
+          transition: background-color 0.3s;
         }
       `}</style>
       <style jsx global>{`
