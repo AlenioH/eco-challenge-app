@@ -27,7 +27,7 @@ export async function getTips() {
 export async function insertUser(user) {
   const userWithHashedPassword = {
     username: user.username,
-    password_hash: await argon2.hash(user.password),
+    password_hash: user.password_hash,
     email: user.email,
   };
   return sql`
@@ -65,6 +65,15 @@ export async function selectUserByUsernameAndPassword(username, password) {
   }
 }
 
+export async function checkUsernameAndEmail(username) {
+  const usersWithUsername = await sql`
+  SELECT * FROM users WHERE username = ${username}
+  `; //select from always returns an array, even if its one
+
+  console.log('users from query', usersWithUsername.length);
+  return usersWithUsername.length;
+}
+
 export async function insertSession(userId, userName, token) {
   return sql`
   INSERT INTO sessions(user_id, user_name, token) VALUES (${userId}, ${userName}, ${token})
@@ -76,12 +85,6 @@ export async function selectSessionByTokenAndUsername(token) {
   SELECT * FROM sessions WHERE token = ${token} 
   `;
 }
-
-// export async function selectSessionByTokenAndUsername(token, userName, userId) {
-//   return sql`
-//   SELECT * FROM sessions WHERE token = ${token} AND user_name = ${userName} AND user_id=${userId}
-//   `;
-// }
 
 export async function removeSessionByToken(token) {
   return sql`

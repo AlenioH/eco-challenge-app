@@ -62,24 +62,8 @@ export default function Login(props) {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
 
-        {/* {props.createAccount === true ? (
-          <>
-            {' '}
-            <label forHtml="email"></label>
-            <input id="email" type="email" placeholder="email"></input>{' '}
-          </>
-        ) : (
-          ''
-        )} */}
         <button>submit</button>
         <p>{status}</p>
-        {/* <button onClick={() => setCreateAccount(!createAccount)}>
-      Login{' '}
-    </button> */}
-
-        {/* <button onClick={() => setCreateAccount(true)}>
-      Create an account
-    </button> */}
       </form>
       <style jsx>{`
         form {
