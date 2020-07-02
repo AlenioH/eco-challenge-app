@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-// import {GetServerSidePropsContext} from "next";
+import Router from 'next/router';
 import Header from '../components/Header';
-const queryString = require('query-string');
 
 export default function Register(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('');
-
-  console.log('props: ', props);
 
   function onSubmit(e) {
     //props.csrf token
@@ -35,15 +32,20 @@ export default function Register(props) {
         return response.json();
       })
       .then((json) => {
-        if (json.signedUp === true) {
-          setStatus('sign up successful!');
-          // Redirect to homepage after 2 seconds
-          // setTimeout(() => {
-          //   Router.replace('/');
-          // }, 2000);
+        if (json.usersWithThisName === true) {
+          setStatus('user with this name already exists!');
+          console.log('json.signedUp', json.usersWithThisName);
         } else {
-          setStatus('username already exists');
-          console.log('json.signedUp', json.signedUp);
+          if (json.usersWithThisEmail === true) {
+            setStatus('user with this email is already signed up');
+            console.log('json.signedUp', json.usersWithThisEmail);
+          } else {
+            setStatus('signup successful');
+            //Redirect to login page  after 2 seconds
+            setTimeout(() => {
+              Router.replace('/login');
+            }, 2000);
+          }
         }
       })
       .catch(() => setStatus('sign up no'));

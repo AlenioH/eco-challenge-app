@@ -2,7 +2,7 @@ import Tokens from 'csrf';
 require('dotenv').config();
 const argon2 = require('argon2');
 
-import { insertUser, checkUsernameAndEmail } from '../../db';
+import { insertUser, checkUsernameAndEmail, checkEmail } from '../../db';
 
 export default async function register(req, res) {
   const tokens = new Tokens();
@@ -24,12 +24,17 @@ export default async function register(req, res) {
   };
 
   const usersWithSameName = await checkUsernameAndEmail(user.username);
+  const usersWithSameEmail = await checkEmail(user.email);
 
   if (tokens.verify(secret, requestToken)) {
     if (!usersWithSameName) {
-      await insertUser(user)
-        .then(() => console.log('succeeded!'))
-        .catch((err) => console.error('didnt work', err));
+      if (!usersWithSameEmail) {
+        await insertUser(user)
+          .then(() => console.log('succeeded!'))
+          .catch((err) => console.error('didnt work', err));
+      } else {
+        console.log('this email already exists');
+      }
     } else {
       console.log('user with this name already exists');
     }
@@ -37,5 +42,8 @@ export default async function register(req, res) {
     console.error('CSRF WENT WRONG');
   }
 
-  res.json({ signedUp: usersWithSameName === 0 });
+  res.json({
+    usersWithThisName: usersWithSameName > 0,
+    usersWithThisEmail: usersWithSameEmail > 0,
+  });
 }

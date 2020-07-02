@@ -7,37 +7,6 @@ import Link from 'next/link';
 export default function Home(props) {
   // console.log(props.dailyTips); //logs out nicely, array of objects
 
-  // const randomTip =
-  //   props.dailyTips[Math.floor(Math.random() * props.dailyTips.length)];
-  // console.log(randomTip); //ok this logs out a random tip
-
-  // const now = new Date();
-  // let millisTill23 =
-  //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0, 0) -
-  //   now;
-  // console.log(millisTill23); //logs out milliseconds till 11pm
-
-  // setTimeout(function () {
-  //   if (millisTill23 < 0) {
-  //     millisTill23 += 86400000;
-  //     console.log(millisTill23);
-  //   }
-  //   // alert('its 12pm!');
-  //   // console.log(
-  //   //   props.dailyTips[Math.floor(Math.random() * props.dailyTips.length)],
-  //   // );
-  //   return props.dailyTips[Math.floor(Math.random() * props.dailyTips.length)];
-  //   // cookie.set('dailyTip', tip);
-  // }, millisTill23); //that should in theory run the function only when its 11pm //ok so it did run, but then its
-
-  // console.log(cookie.getJSON('dailyTip'));
-
-  // function setRandomTipCookie() {
-  //   const tip =
-  //     props.dailyTips[Math.floor(Math.random() * props.dailyTips.length)];
-  //   cookie.set('dailyTip', tip, { expires: 1 });
-  // }
-
   const day = new Date().getDay();
   const randomOne = props.dailyTips[day % props.dailyTips.length];
 
@@ -195,6 +164,7 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
+  require('dotenv').config();
   const { getTips } = await import('../db.js');
   const dailyTips = await getTips(context.params);
 

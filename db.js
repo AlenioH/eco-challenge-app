@@ -69,9 +69,21 @@ export async function checkUsernameAndEmail(username) {
   const usersWithUsername = await sql`
   SELECT * FROM users WHERE username = ${username}
   `; //select from always returns an array, even if its one
+  // const usersWithEmail = await sql`
+  // SELECT * FROM users WHERE email = ${email}
+  // `;
+  // console.log('emails from query', usersWithEmail.length);
 
   console.log('users from query', usersWithUsername.length);
   return usersWithUsername.length;
+}
+
+export async function checkEmail(email) {
+  const usersWithEmail = await sql`
+  SELECT * FROM users WHERE email = ${email}
+  `;
+  console.log('emails from query', usersWithEmail.length);
+  return usersWithEmail.length;
 }
 
 export async function insertSession(userId, userName, token) {
