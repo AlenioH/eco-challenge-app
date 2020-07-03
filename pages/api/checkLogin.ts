@@ -1,22 +1,13 @@
-// import crypto from 'crypto';
-// import { serialize } from 'cookie';
+
 import { selectSessionByTokenAndUsername } from '../../db';
-import { parse } from 'cookie';
+
 var cookie = require('cookie');
 
 export default async function checkLogin(req, res) {
-  // console.log('COOKIES: ', req.cookies.token); undefined
-  // const cookiePar = cookie.parse(req.cookies.userAndToken);
-  // console.log('TOKEN FROM COOKIES', JSON.parse(req.cookies.userAndToken)); //obviously i need to parse it
-  // const cookiesPar = JSON.parse(req.cookies.userAndToken);
-  // console.log(cookiesPar);
-  // const token = cookiesPar.token;
-  // const username = cookiesPar.username;
-  // const userId = cookiesPar.user_id;
-
+  
   const token = req.cookies.token;
 
-  console.log('token: ', token);
+  console.log('token from checkLogin API: ', token);
 
   const session = await selectSessionByTokenAndUsername(token);
   // console.log('SESSION:', session);

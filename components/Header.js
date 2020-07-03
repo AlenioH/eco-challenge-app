@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Router from 'next/dist/next-server/lib/router/router';
+// import Router from 'next/dist/next-server/lib/router/router';
 // const nextCookies = import('next-cookies');
 // import Modal from 'react-modal';
 // import Form from './Form';
@@ -45,11 +45,11 @@ export default function Header() {
   // const [modalIsOpen, setModalIsOpen] = useState(false);
   // const [createAccount, setCreateAccount] = useState(false);
 
-  const linkList = [
-    { name: 'Home', url: '/' },
-    { name: 'Challenges', url: '/challenges' },
-    { name: 'Articles', url: '/articles' },
-  ];
+  // const linkList = [
+  //   { name: 'Home', url: '/' },
+  //   { name: 'Challenges', url: '/challenges' },
+  //   { name: 'Articles', url: '/articles' },
+  // ];
 
   const [user, setUser] = useState('');
   const [link, setLink] = useState('');

@@ -103,3 +103,24 @@ export async function removeSessionByToken(token) {
   DELETE FROM sessions WHERE token = ${token}
   `;
 }
+
+export async function getChallenges() {
+  const challenges = await sql`
+  SELECT * FROM challenges
+  `;
+  console.log(challenges);
+  return challenges;
+}
+
+export async function insertUserChallenge(challengeId, userId) {
+  return sql`
+  INSERT INTO user_challenges(challenge_id, user_id) VALUES (${challengeId}, ${userId})
+  `;
+}
+
+export async function getChallengeById(id) {
+  const challenge = await sql`
+  SELECT * FROM challenges WHERE id = ${id}`;
+  console.log('one challenge from db query:', challenge[0]);
+  return challenge[0];
+}
