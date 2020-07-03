@@ -8,37 +8,8 @@ import AddChallengeButton from '../components/AddChallengeButton';
 // import OneChallenge from './[id]';
 
 export default function Challenges(props) {
-  console.log('props from challenges page', props.oneChallenge);
+  // console.log('props from challenges page', props.oneChallenge);
 
-  function onClick() {
-    fetch('/api/addChallenge', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ challengeID: props.challenges.id }),
-    })
-      .then((response) => {
-        if (response.ok !== true) {
-          console.log('response from add challenge not OK');
-        }
-        console.log(response);
-        return response.json();
-      })
-      .then((json) => {
-        if (json.addChallenge === true) {
-          console.log('challenge added successfully!');
-          // Redirect to homepage after 2 seconds
-          // setTimeout(() => {
-          //   Router.replace('/');
-          // }, 1000);
-        } else {
-          console.log('smth failed with challenges');
-          console.log('json.addchallenge', json.addChallenge);
-        }
-      })
-      .catch((err) => console.error('api challenge meh', err));
-  }
   return (
     <div>
       <Head>
@@ -124,11 +95,9 @@ export default function Challenges(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { getChallenges, getChallengeById } = await import('../db');
+  const { getChallenges } = await import('../db');
   const challenges = await getChallenges(context.params);
   // console.log('challenges page: ', challenges); //is an array of objects
-  // const oneChallenge = await getChallengeById(context.params.id);
-
   return {
     props: {
       challenges,

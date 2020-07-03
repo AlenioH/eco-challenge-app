@@ -3,7 +3,8 @@ import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-export default function profilePage() {
+export default function profilePage(props) {
+  console.log('props from the profile page', props);
   return (
     <div>
       <Head>
@@ -44,4 +45,20 @@ export default function profilePage() {
       `}</style>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { getUserById, getChallengeByUserId, getChallengeById } = await import(
+    '../../db'
+  );
+  const user = await getUserById(context.params.id);
+  const userChallenges = await getChallengeByUserId(context.params.id); //returns an object challenges: { challenge_id: 4, user_id: 18 }
+  const challengesToShow = await getChallengeById(userChallenges.challenge_id);
+
+  return {
+    props: {
+      user: user,
+      challenges: userChallenges,
+    },
+  };
 }

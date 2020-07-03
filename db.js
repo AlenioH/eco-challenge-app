@@ -118,9 +118,23 @@ export async function insertUserChallenge(challengeId, userId) {
   `;
 }
 
-export async function getChallengeById(id) {
+export async function getChallengeByUserId(userId) {
   const challenge = await sql`
-  SELECT * FROM challenges WHERE id = ${id}`;
+  SELECT * FROM user_challenges WHERE user_id = ${userId}`;
   console.log('one challenge from db query:', challenge[0]);
+  return challenge[0];
+}
+
+export async function getUserById(userId) {
+  const user = await sql`
+  SELECT * FROM users WHERE id = ${userId}`;
+  console.log('one user from db query:', user[0]);
+  return user[0];
+}
+
+export async function getChallengeById(challengeId) {
+  const challenge = await sql`
+  SELECT * FROM challenges WHERE id = ${challengeId}`;
+  console.log('user challenge by id from db query:', challenge[0]);
   return challenge[0];
 }
