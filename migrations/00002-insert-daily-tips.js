@@ -14,6 +14,6 @@ exports.up = async (sql) => {
 
 exports.down = async (sql) => {
   await sql`
-	DELETE FROM products WHERE title IN('Bring your own cup', 'Enjoy your ice-cream with a cone', 'Carry a reusable water bottle', 'Carry a reusable shopping bag', 'Unsubscribe from newsletters you never read', 'Bring your own lunch to work') 
+	DELETE FROM daily_tips WHERE title IN('Bring your own cup', 'Enjoy your ice-cream with a cone', 'Carry a reusable water bottle', 'Carry a reusable shopping bag', 'Unsubscribe from newsletters you never read', 'Bring your own lunch to work') 
 	`;
 };
