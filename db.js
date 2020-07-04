@@ -157,11 +157,3 @@ export async function completeChallenge(challengeId, userId) {
 DELETE FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
 `;
 }
-
-export async function checkChallengeByUserAndChallenge(challengeId, userId) {
-  const userChallenges = await sql`
-SElECT * FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
-
-`;
-  return userChallenges;
-}

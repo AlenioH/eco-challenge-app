@@ -19,20 +19,16 @@ export default function AddChallengeButton(props) {
         return response.json();
       })
       .then((json) => {
-        if (json.challengeExists === true) {
-          alert('You already committed to this challenge!');
+        if (json.addChallenge === true) {
+          console.log('challenge added successfully!');
+          alert('challenge added successfully!');
+          // Redirect to homepage after 2 seconds
+          // setTimeout(() => {
+          //   Router.replace('/');
+          // }, 1000);
         } else {
-          if (json.addChallenge === true) {
-            console.log('challenge added successfully!');
-            alert('challenge added successfully!');
-            // Redirect to homepage after 2 seconds
-            // setTimeout(() => {
-            //   Router.replace('/');
-            // }, 1000);
-          } else {
-            console.log('smth failed with challenges');
-            console.log('json.addchallenge', json.addChallenge);
-          }
+          console.log('smth failed with challenges');
+          console.log('json.addchallenge', json.addChallenge);
         }
       })
       .catch((err) => console.error('api challenge meh', err));
