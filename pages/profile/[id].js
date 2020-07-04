@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
 
 export default function profilePage(props) {
   console.log('props from the profile page', props);
@@ -16,10 +17,32 @@ export default function profilePage(props) {
       <div className="container">
         <h1>Your profile</h1>
         <h2>{props.user.username}</h2>
+        <div className="challenges">
+          <div className="activeChallenges">
+            <h3>Active challenges</h3>
+            <ul>
+              {props.challengesToShow.map((challenge) => {
+                return (
+                  <li key={challenge.id}>
+                    <img src={challenge.img} alt="challenge"></img>
 
-        <h3>Active challenges</h3>
+                    <h3>{challenge.name}</h3>
+                    <p>Category: {challenge.category}</p>
 
-        <h3>Completed challenges</h3>
+                    <p>{challenge.description}</p>
+                    <ChallengeCompletedButton
+                      challengeId={challenge.id}
+                      userId={props.user.id}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="completed challenges">
+            <h3>Completed challenges</h3>
+          </div>
+        </div>
       </div>
       <Footer />
       <style jsx>{`
@@ -30,6 +53,19 @@ export default function profilePage(props) {
 
         h1 {
           margin-top: 10rem;
+        }
+        .challenges {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 2rem;
+        }
+        img {
+          height: 300px;
+          width: 200px;
+          border-radius: 4px;
+        }
+        ul {
+          list-style-type: none;
         }
       `}</style>
       <style jsx global>{`

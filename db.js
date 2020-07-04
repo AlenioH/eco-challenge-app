@@ -151,3 +151,9 @@ export async function getChallengesByIds(challengeIds) {
   // console.log('user challenge by id from db query:', userChallenges);
   return userChallenges;
 }
+
+export async function completeChallenge(challengeId, userId) {
+  await sql`
+DELETE FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
+`;
+}
