@@ -3,8 +3,8 @@ import { selectSessionByTokenAndUsername, insertUserChallenge } from '../../db';
 export default async function addChallenge(req, res) {
   const token = req.cookies.token;
   const challengeId = req.body.challengeId;
-  console.log('token from addChallenge API: ', token);
-  console.log('challengeID from addCh API:', challengeId);
+  // console.log('token from addChallenge API: ', token);
+  // console.log('challengeID from addCh API:', challengeId);
 
   const session = await selectSessionByTokenAndUsername(token);
   // console.log('SESSION:', session);
