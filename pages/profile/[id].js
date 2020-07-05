@@ -43,6 +43,24 @@ export default function profilePage(props) {
           </div>
           <div className="completed challenges">
             <h3>Completed challenges</h3>
+            {props.completedToShow.length > 0
+              ? props.completedToShow.map((challenge) => {
+                  return (
+                    <li key={challenge.id}>
+                      <img src={challenge.img} alt="challenge"></img>
+
+                      <h3>{challenge.name}</h3>
+                      <p>Category: {challenge.category}</p>
+
+                      <p>{challenge.description}</p>
+                      <ChallengeCompletedButton
+                        challengeId={challenge.id}
+                        userId={props.user.id}
+                      />
+                    </li>
+                  );
+                })
+              : 'you have no active challenges'}
           </div>
         </div>
       </div>
@@ -93,10 +111,12 @@ export async function getServerSideProps(context) {
     getUserById,
     getChallengeByUserId,
     getChallengesByIds,
+    getCompletedChallengesByUserId,
+    getCompletedChallengesByIds,
   } = await import('../../db');
   const user = await getUserById(context.params.id);
-  // console.log('user from id page', user);
-  const userChallenges = await getChallengeByUserId(context.params.id);
+  console.log('user from id page', user.id);
+  const userChallenges = await getChallengeByUserId(user.id);
   // console.log('userChallenges from profile page', userChallenges);
   //returns an array of objects: [
   //   { challenge_id: 2, user_id: 18 },
@@ -109,14 +129,21 @@ export async function getServerSideProps(context) {
 
   const challengesToShow =
     userChallenges.length > 0 ? await getChallengesByIds(chalId) : [];
-  console.log('challengestoshow prof page', challengesToShow); //if i don't do it like that, the whole profile page crushes when there are no challenges
+  // console.log('challengestoshow prof page', challengesToShow); //if i don't do it like that, the whole profile page crushes when there are no challenges
 
+  const completedChallenges = await getCompletedChallengesByUserId(user.id);
+  console.log('completed challe', completedChallenges);
+  const complChalId = completedChallenges.map((item) => item.challenge_id);
+
+  const completedToShow = await getCompletedChallengesByIds(complChalId);
+  console.log('completedtoshow', completedToShow);
   return {
     props: {
       user: user,
       // challenges: userChallenges, don't actually need it as a prop
       ...(challengesToShow ? { challengesToShow: challengesToShow } : []),
       // challengesToShow: challengesToShow,
+      completedToShow,
     },
   };
 }

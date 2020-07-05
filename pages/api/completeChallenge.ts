@@ -1,4 +1,4 @@
-import { completeChallenge } from '../../db';
+import { completeChallenge, insertIntoCompletedChallenges } from '../../db';
 
 export default async function addChallenge(req, res) {
   const challengeId = req.body.challengeId;
@@ -11,7 +11,11 @@ export default async function addChallenge(req, res) {
     .then(() => console.log('challenge completed successfully'))
     .catch((err) => console.error('completing challenge went wrong', err));
 
+  await insertIntoCompletedChallenges(challengeId, userId)
+    .then(() => console.log('insert into completed successful'))
+    .catch((err) => console.log('failed insert into completed', err));
   res.json({
     completeChallenge: true,
+    intoCompleted: true,
   });
 }

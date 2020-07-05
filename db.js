@@ -151,7 +151,7 @@ export async function getChallengeById(challengeId) {
 export async function getChallengesByIds(challengeIds) {
   const userChallenges = await sql`
   SELECT * FROM challenges WHERE id IN (${challengeIds})`; //passing in an array
-  console.log('user challenge by id from db query:', userChallenges);
+  // console.log('user challenge by id from db query:', userChallenges);
   return userChallenges;
 }
 
@@ -167,4 +167,24 @@ SElECT * FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = 
 
 `;
   return userChallenges;
+}
+
+export async function insertIntoCompletedChallenges(challengeId, userId) {
+  await sql`
+  INSERT INTO completed_challenges(challenge_id, user_id) VALUES (${challengeId}, ${userId})
+  `;
+}
+
+export async function getCompletedChallengesByUserId(userId) {
+  const completedChallenges = await sql`
+  SELECT * FROM completed_challenges WHERE user_id = ${userId}
+  `;
+  return completedChallenges;
+}
+
+export async function getCompletedChallengesByIds(challengeIds) {
+  const completedChallenges = await sql`
+  SELECT * FROM challenges WHERE id IN (${challengeIds})`; //passing in an array
+  // console.log('user challenge by id from db query:', userChallenges);
+  return completedChallenges;
 }
