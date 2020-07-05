@@ -60,7 +60,7 @@ export default function profilePage(props) {
                     </li>
                   );
                 })
-              : 'you have no active challenges'}
+              : 'you have no completed challenges'}
           </div>
         </div>
       </div>
@@ -135,7 +135,10 @@ export async function getServerSideProps(context) {
   console.log('completed challe', completedChallenges);
   const complChalId = completedChallenges.map((item) => item.challenge_id);
 
-  const completedToShow = await getCompletedChallengesByIds(complChalId);
+  const completedToShow =
+    completedChallenges.length > 0
+      ? await getCompletedChallengesByIds(complChalId)
+      : [];
   console.log('completedtoshow', completedToShow);
   return {
     props: {
