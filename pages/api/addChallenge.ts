@@ -1,4 +1,8 @@
-import { selectSessionByTokenAndUsername, insertUserChallenge } from '../../db';
+import {
+  selectSessionByTokenAndUsername,
+  insertUserChallenge,
+  checkChallengeByUserAndChallenge,
+} from '../../db';
 
 export default async function addChallenge(req, res) {
   const token = req.cookies.token;
@@ -8,21 +12,33 @@ export default async function addChallenge(req, res) {
 
   const session = await selectSessionByTokenAndUsername(token);
   // console.log('SESSION:', session);
+  const userId = session[0].user_id;
+
+  const userChallenges = await checkChallengeByUserAndChallenge(
+    challengeId,
+    userId,
+  );
 
   //because db query return an array we can do=>
   // console.log(res.json(session.length));
 
   //the logic is like if there is a session existing, means the user is logged in => add challenge
+  //if length of userChallenges is > 0 means the user already added this challenge
   if (session.length !== 0) {
-    await insertUserChallenge(challengeId, session[0].user_id)
-      .then(() => console.log('challenge added successfully'))
-      .catch((err) => console.error('addid challenge went wrong', err));
+    if (userChallenges.length === 0) {
+      await insertUserChallenge(challengeId, session[0].user_id)
+        .then(() => console.log('challenge added successfully'))
+        .catch((err) => console.error('addid challenge went wrong', err));
+    } else {
+      console.log('challenge already exists');
+    }
   }
 
   res.json(
     {
       addChallenge: true,
       id: session[0].user_id,
+      challengeExists: userChallenges.length > 0,
     },
     // username: cookiesPar.username,
     // id: cookiesPar.id,

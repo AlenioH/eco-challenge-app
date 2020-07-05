@@ -26,7 +26,6 @@ export default function Challenges(props) {
 
                 <h3>{challenge.name}</h3>
                 <p>Category: {challenge.category}</p>
-                <p>How many days it will take you: {challenge.length}</p>
                 <p>{challenge.description}</p>
                 {/* <button onClick={onClick}>Challenge accepted!</button> */}
                 <AddChallengeButton challengeId={challenge.id} />

@@ -122,6 +122,8 @@ export async function getChallengeByUserId(userId) {
   const challenge = await sql`
   SELECT * FROM user_challenges WHERE user_id = ${userId}`;
   console.log('user challenges from db query:', challenge);
+  // return challenge;
+
   return challenge;
 } //this function works  [
 //   { challenge_id: 2, user_id: 18 },
@@ -141,6 +143,7 @@ export async function getChallengeById(challengeId) {
   const userChallenges = await sql`
   SELECT * FROM challenges WHERE id = ${challengeId}`;
   console.log('user challenge by id from db query:', userChallenges);
+
   return userChallenges;
 }
 
@@ -148,7 +151,7 @@ export async function getChallengeById(challengeId) {
 export async function getChallengesByIds(challengeIds) {
   const userChallenges = await sql`
   SELECT * FROM challenges WHERE id IN (${challengeIds})`; //passing in an array
-  // console.log('user challenge by id from db query:', userChallenges);
+  console.log('user challenge by id from db query:', userChallenges);
   return userChallenges;
 }
 
@@ -156,4 +159,12 @@ export async function completeChallenge(challengeId, userId) {
   await sql`
 DELETE FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
 `;
+}
+
+export async function checkChallengeByUserAndChallenge(challengeId, userId) {
+  const userChallenges = await sql`
+SElECT * FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
+
+`;
+  return userChallenges;
 }

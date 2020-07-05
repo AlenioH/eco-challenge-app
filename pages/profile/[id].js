@@ -10,7 +10,7 @@ export default function profilePage(props) {
   return (
     <div>
       <Head>
-        <title>Profile page {props.user.username}</title>
+        <title>Profile page {props.user.username} </title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <Header />
@@ -21,22 +21,24 @@ export default function profilePage(props) {
           <div className="activeChallenges">
             <h3>Active challenges</h3>
             <ul>
-              {props.challengesToShow.map((challenge) => {
-                return (
-                  <li key={challenge.id}>
-                    <img src={challenge.img} alt="challenge"></img>
+              {props.challengesToShow.length > 0
+                ? props.challengesToShow.map((challenge) => {
+                    return (
+                      <li key={challenge.id}>
+                        <img src={challenge.img} alt="challenge"></img>
 
-                    <h3>{challenge.name}</h3>
-                    <p>Category: {challenge.category}</p>
+                        <h3>{challenge.name}</h3>
+                        <p>Category: {challenge.category}</p>
 
-                    <p>{challenge.description}</p>
-                    <ChallengeCompletedButton
-                      challengeId={challenge.id}
-                      userId={props.user.id}
-                    />
-                  </li>
-                );
-              })}
+                        <p>{challenge.description}</p>
+                        <ChallengeCompletedButton
+                          challengeId={challenge.id}
+                          userId={props.user.id}
+                        />
+                      </li>
+                    );
+                  })
+                : 'you have no active challenges'}
             </ul>
           </div>
           <div className="completed challenges">
@@ -93,23 +95,30 @@ export async function getServerSideProps(context) {
     getChallengesByIds,
   } = await import('../../db');
   const user = await getUserById(context.params.id);
-  const userChallenges = await getChallengeByUserId(context.params.id); //returns an array of objects: [
+  // console.log('user from id page', user);
+  const userChallenges = await getChallengeByUserId(context.params.id);
+  // console.log('userChallenges from profile page', userChallenges);
+  //returns an array of objects: [
   //   { challenge_id: 2, user_id: 18 },
   //   count: 3,
   //   command: 'SELECT'
   // ]
 
-  const chalId = userChallenges.map((item) => item.challenge_id);
-  console.log(chalId); //array [ 5, 2 ]
+  const chalId = userChallenges.map((item) => item.challenge_id) || [];
+  // console.log('challenges ids from prof page', chalId); //array [ 5, 2 ]
 
-  const challengesToShow = await getChallengesByIds(chalId);
-  console.log('challengestoshow', challengesToShow);
+  const challengesToShow =
+    userChallenges.length > 0 ? await getChallengesByIds(chalId) : [];
+  console.log('challengestoshow prof page', challengesToShow); //if i don't do it like that, the whole profile page crushes when there are no challenges
 
   return {
     props: {
       user: user,
       // challenges: userChallenges, don't actually need it as a prop
-      challengesToShow: challengesToShow,
+      ...(challengesToShow ? { challengesToShow: challengesToShow } : []),
+      // challengesToShow: challengesToShow,
     },
   };
 }
+
+// ...(cart ? { cart: cart } : undefined),
