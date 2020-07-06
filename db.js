@@ -182,9 +182,8 @@ export async function getCompletedChallengesByUserId(userId) {
   return completedChallenges;
 }
 
-export async function getCompletedChallengesByIds(challengeIds) {
-  const completedChallenges = await sql`
-  SELECT * FROM challenges WHERE id IN (${challengeIds})`; //passing in an array
-  // console.log('user challenge by id from db query:', userChallenges);
-  return completedChallenges;
+export async function removeChallengeByUserAndChallengeId(challengeId, userId) {
+  return sql`
+  DELETE FROM completed_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
+  `;
 }

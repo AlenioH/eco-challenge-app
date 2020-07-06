@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
+import DeleteChallengeButton from '../../components/DeleteChallengeButton';
 
 export default function profilePage(props) {
   console.log('props from the profile page', props);
@@ -38,29 +39,31 @@ export default function profilePage(props) {
                       </li>
                     );
                   })
-                : 'you have no active challenges'}
+                : 'you have no active challenges yet'}
             </ul>
           </div>
-          <div className="completed challenges">
+          <div className="completedChallenges">
             <h3>Completed challenges</h3>
-            {props.completedToShow.length > 0
-              ? props.completedToShow.map((challenge) => {
-                  return (
-                    <li key={challenge.id}>
-                      <img src={challenge.img} alt="challenge"></img>
+            <ul>
+              {props.completedToShow.length > 0
+                ? props.completedToShow.map((challenge) => {
+                    return (
+                      <li key={challenge.id}>
+                        <img src={challenge.img} alt="challenge"></img>
 
-                      <h3>{challenge.name}</h3>
-                      <p>Category: {challenge.category}</p>
+                        <h3>{challenge.name}</h3>
+                        <p>Category: {challenge.category}</p>
 
-                      <p>{challenge.description}</p>
-                      <ChallengeCompletedButton
-                        challengeId={challenge.id}
-                        userId={props.user.id}
-                      />
-                    </li>
-                  );
-                })
-              : 'you have no completed challenges'}
+                        <p>{challenge.description}</p>
+                        <DeleteChallengeButton
+                          challengeId={challenge.id}
+                          userId={props.user.id}
+                        />
+                      </li>
+                    );
+                  })
+                : 'you have no completed challenges yet'}
+            </ul>
           </div>
         </div>
       </div>
@@ -74,6 +77,11 @@ export default function profilePage(props) {
         h1 {
           margin-top: 10rem;
         }
+
+        h2 {
+          color: whitesmoke;
+          text-shadow: 1px 1px grey;
+        }
         .challenges {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -86,6 +94,11 @@ export default function profilePage(props) {
         }
         ul {
           list-style-type: none;
+        }
+        .activeChallenges,
+        .completedChallenges {
+          display: flex;
+          flex-direction: column;
         }
       `}</style>
       <style jsx global>{`
@@ -112,10 +125,9 @@ export async function getServerSideProps(context) {
     getChallengeByUserId,
     getChallengesByIds,
     getCompletedChallengesByUserId,
-    getCompletedChallengesByIds,
   } = await import('../../db');
   const user = await getUserById(context.params.id);
-  console.log('user from id page', user.id);
+  // console.log('user from id page', user.id);
   const userChallenges = await getChallengeByUserId(user.id);
   // console.log('userChallenges from profile page', userChallenges);
   //returns an array of objects: [
@@ -132,23 +144,19 @@ export async function getServerSideProps(context) {
   // console.log('challengestoshow prof page', challengesToShow); //if i don't do it like that, the whole profile page crushes when there are no challenges
 
   const completedChallenges = await getCompletedChallengesByUserId(user.id);
-  console.log('completed challe', completedChallenges);
+  // console.log('completed challe', completedChallenges);
   const complChalId = completedChallenges.map((item) => item.challenge_id);
 
   const completedToShow =
-    completedChallenges.length > 0
-      ? await getCompletedChallengesByIds(complChalId)
-      : [];
-  console.log('completedtoshow', completedToShow);
+    completedChallenges.length > 0 ? await getChallengesByIds(complChalId) : [];
+  // console.log('completedtoshow', completedToShow);
   return {
     props: {
       user: user,
       // challenges: userChallenges, don't actually need it as a prop
-      ...(challengesToShow ? { challengesToShow: challengesToShow } : []),
-      // challengesToShow: challengesToShow,
+      challengesToShow,
+
       completedToShow,
     },
   };
 }
-
-// ...(cart ? { cart: cart } : undefined),

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function ChallengeCompletedButton(props) {
+export default function DeleteChallengeButton(props) {
   // console.log('props from button', props);
   function onClick() {
-    fetch('/api/completeChallenge', {
+    fetch('/api/deleteChallenge', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,20 +15,20 @@ export default function ChallengeCompletedButton(props) {
     })
       .then((response) => {
         if (response.ok !== true) {
-          console.log('response from completechallenge not OK');
+          console.log('response from delete challenge not OK');
         }
-        console.log(response);
+        // console.log(response);
         return response.json();
       })
       .then((json) => {
-        if (json.completeChallenge === true) {
-          console.log('challenge complete successfully!');
-          alert('congratulations! you rock!');
+        if (json.challengeDeleted === true) {
+          console.log('challenge delete successfully!');
+          alert('challenge was successfully deleted');
         } else {
-          console.log('smth failed with challenge complete');
+          console.log('smth failed with challenge delete');
         }
       })
       .catch((err) => console.error('api challenge meh', err));
   }
-  return <button onClick={onClick}> I made it!</button>;
+  return <button onClick={onClick}> Remove challenge</button>;
 }

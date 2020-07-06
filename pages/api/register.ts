@@ -8,14 +8,14 @@ export default async function register(req, res) {
   const tokens = new Tokens();
   const secret = process.env.CSRF_TOKEN;
   const requestToken = req.body.csrf;
-  console.log('secret2:', secret);
+  // console.log('secret2:', secret);
 
   if (typeof secret !== 'string') {
     throw new Error('Token secret misconfigured!');
   }
 
-  console.log('req.body.csrf: ', req.body.csrf);
-  console.log('req.body: ', req.body);
+  // console.log('req.body.csrf: ', req.body.csrf);
+  // console.log('req.body: ', req.body);
 
   const user = {
     username: req.body.username,

@@ -147,7 +147,7 @@ export async function getServerSideProps() {
   const tokens = new Tokens();
   const secret = process.env.CSRF_TOKEN;
   // const secret = tokens.secretSync();
-  console.log('secret: ', secret);
+  // console.log('secret: ', secret);
 
   //this secret gets generated new every time which you actually dont want, so mb put it in like .env
   // const { insertUser, checkUsernameAndEmail } = await import('../db');
