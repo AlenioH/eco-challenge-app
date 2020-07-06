@@ -4,9 +4,39 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
 import DeleteChallengeButton from '../../components/DeleteChallengeButton';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from 'react-share';
+// import {
+//   FacebookShareCount,
+//   OKShareCount,
+//   PinterestShareCount,
+//   RedditShareCount,
+//   TumblrShareCount,
+//   VKShareCount,
+// } from 'react-share';
 
+import { FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 export default function profilePage(props) {
   // console.log('props from the profile page', props);
+
+  //   <div className="Demo__some-network">
+  //   <FacebookShareButton
+  //     url={shareUrl}
+  //     quote={title}
+  //     className="Demo__some-network__share-button"
+  //   >
+  //     <FacebookIcon size={32} round />
+  //   </FacebookShareButton>
+
+  //   <div>
+  //     <FacebookShareCount url={shareUrl} className="Demo__some-network__share-count">
+  //       {count => count}
+  //     </FacebookShareCount>
+  //   </div>
+  // </div>
 
   return (
     <div>
@@ -36,6 +66,30 @@ export default function profilePage(props) {
                           challengeId={challenge.id}
                           userId={props.user.id}
                         />
+                        <FacebookShareButton
+                          url="www.google.com"
+                          quote={`Look what I'm up to! ${challenge.name}`}
+                        >
+                          <FacebookIcon size={32} round={true} />
+                        </FacebookShareButton>
+                        <TwitterShareButton
+                          url="www.google.com"
+                          title={`Look what I'm up to! ${challenge.name}`}
+                        >
+                          <TwitterIcon size={32} round={true} />
+                        </TwitterShareButton>
+                        <WhatsappShareButton
+                          url="www.google.com"
+                          title={`Look what I'm up to! ${challenge.name}`}
+                          separator=":: "
+                        >
+                          <WhatsappIcon size={32} round />
+                        </WhatsappShareButton>
+                        {/* <div>
+                          <FacebookShareCount url="http://localhost:3000/profile/39">
+                            {(count) => count}
+                          </FacebookShareCount>
+                        </div> no idea whar this does....*/}
                       </li>
                     );
                   })
