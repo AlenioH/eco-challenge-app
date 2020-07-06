@@ -33,5 +33,28 @@ export default function DeleteChallengeButton(props) {
       })
       .catch((err) => console.error('api challenge meh', err));
   }
-  return <button onClick={onClick}> Remove challenge</button>;
+  return (
+    <div>
+      <button onClick={onClick}>
+        {' '}
+        Remove challenge
+        <style jsx>{`
+          button {
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 0.8rem;
+            color: whitesmoke;
+            background-color: #6b8172;
+          }
+          button:hover {
+            background-color: #2f3640;
+            transition: background-color 0.3s;
+          }
+        `}</style>
+      </button>
+    </div>
+  );
 }

@@ -37,5 +37,25 @@ export default function AddChallengeButton(props) {
       .catch((err) => console.error('api challenge meh', err));
   }
 
-  return <button onClick={onClick}> Challenge accepted</button>;
+  return (
+    <div>
+      <button onClick={onClick}> Challenge accepted</button>
+      <style jsx>{`
+        button {
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 2rem;
+          font-family: inherit;
+          font-weight: 800;
+          font-size: 1.2rem;
+          color: whitesmoke;
+          background-color: #009432;
+        }
+        button:hover {
+          background-color: #2f3640;
+          transition: background-color 0.3s;
+        }
+      `}</style>
+    </div>
+  );
 }

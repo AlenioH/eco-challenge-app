@@ -104,6 +104,12 @@ export async function removeSessionByToken(token) {
   `;
 }
 
+// export async function removeSessionByUserId(userId) {
+//   await sql`
+//   DELETE FROM sessions WHERE user_id IN (${userId})
+//   `;
+// }
+
 export async function getChallenges() {
   const challenges = await sql`
   SELECT * FROM challenges

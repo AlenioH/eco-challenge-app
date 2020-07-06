@@ -16,17 +16,11 @@ export default async function login(req, res) {
 
     const token = crypto.randomBytes(24).toString('base64'); //this creates a session token
 
-    // const toStore = {
-    //   token: token,
-    //   username: users[0].username,
-    //   user_id: users[0].id,
-    // };
-    // cannot store object inside a cookie
-
     const maxAge = 60 * 60 * 8; //session expires after 8 hours
 
     //it sets cookie called 'token' which i will not be able to access from JS.....
 
+    // await removeSessionByUserId(users[0].id);
     //this inserts the session into the table
     await insertSession(users[0].id, users[0].username, token);
 
