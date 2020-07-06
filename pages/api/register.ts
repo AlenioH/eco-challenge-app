@@ -37,12 +37,11 @@ export default async function register(req, res) {
             // https://github.com/sendgrid/sendgrid-nodejs
             {
               const msg = {
-                to: 'alena.hasslacher@gmail.com',
-                from: 'alena.hasslacher@gmail.com',
-                subject: 'Sending with Twilio SendGrid is Funnnnn',
-                text: 'and easy to do anywhere, even with Node.js',
-                html:
-                  '<strong>and easy to do anywhere, even with Node.js</strong>',
+                to: user.email,
+                from: 'challenge@alenio.works',
+                subject: 'Welcome to so green!',
+                text:
+                  'Hey there! You are receiving this email because you just signed up for So Green eco challenge app. I am excited to have you here and hope you will learn something new. Have fun!',
               };
               sgMail.send(msg);
               console.log('succeeded!');
