@@ -6,7 +6,7 @@ import ChallengeCompletedButton from '../../components/ChallengeCompletedButton'
 import DeleteChallengeButton from '../../components/DeleteChallengeButton';
 
 export default function profilePage(props) {
-  console.log('props from the profile page', props);
+  // console.log('props from the profile page', props);
 
   return (
     <div>

@@ -121,7 +121,7 @@ export async function insertUserChallenge(challengeId, userId) {
 export async function getChallengeByUserId(userId) {
   const challenge = await sql`
   SELECT * FROM user_challenges WHERE user_id = ${userId}`;
-  console.log('user challenges from db query:', challenge);
+  // console.log('user challenges from db query:', challenge);
   // return challenge;
 
   return challenge;
@@ -142,7 +142,7 @@ export async function getUserById(userId) {
 export async function getChallengeById(challengeId) {
   const userChallenges = await sql`
   SELECT * FROM challenges WHERE id = ${challengeId}`;
-  console.log('user challenge by id from db query:', userChallenges);
+  // console.log('user challenge by id from db query:', userChallenges);
 
   return userChallenges;
 }

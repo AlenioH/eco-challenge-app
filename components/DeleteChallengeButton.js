@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 
 export default function DeleteChallengeButton(props) {
   // console.log('props from button', props);
@@ -24,6 +25,8 @@ export default function DeleteChallengeButton(props) {
         if (json.challengeDeleted === true) {
           console.log('challenge delete successfully!');
           alert('challenge was successfully deleted');
+
+          Router.reload();
         } else {
           console.log('smth failed with challenge delete');
         }

@@ -1,7 +1,14 @@
 import React from 'react';
+import Router from 'next/router';
 
 export default function ChallengeCompletedButton(props) {
   // console.log('props from button', props);
+
+  // useEffect(() => {
+  //   function handleStatusChange(status) {
+  //     setIsOnline(status.isOnline);
+  //   }
+
   function onClick() {
     fetch('/api/completeChallenge', {
       method: 'POST',
@@ -24,6 +31,8 @@ export default function ChallengeCompletedButton(props) {
         if (json.completeChallenge === true) {
           console.log('challenge complete successfully!');
           alert('congratulations! you rock!');
+
+          Router.reload();
         } else {
           console.log('smth failed with challenge complete');
         }

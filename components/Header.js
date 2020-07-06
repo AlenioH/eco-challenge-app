@@ -97,7 +97,7 @@ export default function Header() {
         console.error('error fetching session', err);
       });
   }, [user]); //[user]??? //it doesnt log out the user if i dont put state var as a secod param
-  console.log('USER: ', user);
+  // console.log('USER: ', user);
   //as a second parameter to the useEffect function you pass in a state var you want to watch
   //in this case i don't have any state var it makes sense to watch, so leaving it empty means it will only run once
   //if user === null, then login and signup buttons shall be displayed, otherwise username and a logout button
@@ -293,15 +293,3 @@ export default function Header() {
     </div>
   );
 }
-
-// export async function getInitialProps(context) {
-//   const nextCookies = (await import('next-cookies')).default;
-//   console.log(context);
-//   const { username } = nextCookies(context);
-
-//   return {
-//     props: {
-//       username,
-//     },
-//   };
-// }
