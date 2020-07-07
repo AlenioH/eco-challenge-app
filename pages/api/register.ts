@@ -1,5 +1,5 @@
 import Tokens from 'csrf';
-require('dotenv').config();
+// require('dotenv').config();
 import argon2 from 'argon2';
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
