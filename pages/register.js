@@ -146,51 +146,6 @@ export async function getServerSideProps() {
   const Tokens = await (await import('csrf')).default;
   const tokens = new Tokens();
   const secret = process.env.CSRF_TOKEN;
-  // const secret = tokens.secretSync();
-  // console.log('secret: ', secret);
-
-  //this secret gets generated new every time which you actually dont want, so mb put it in like .env
-  // const { insertUser, checkUsernameAndEmail } = await import('../db');
-
-  // let buffer = '';
-
-  // context.req.on('data', (chunk) => {
-  //   buffer += chunk;
-  // });
-
-  // context.req.on('end', async () => {
-  //   const body = queryString.parse(Buffer.from(buffer).toString());
-  //   const user = {
-  //     username: body.username,
-  //     password: body.password,
-  //     email: body.email,
-  //   };
-  //   // const usersWithSameName = async function () {
-  //   //   await checkUsernameAndEmail(user.username);
-  //   // };
-
-  //   const usersWithSameName = await checkUsernameAndEmail(body.username);
-
-  //   console.log('usersWithSameName', usersWithSameName);
-
-  //   const requestToken = body.csrf; //csrf is the 'name' attribute on the hidden input field
-  //   console.log('requestToken: ', requestToken);
-  //   //only if the request token matches, will user be inserted in the db
-
-  //   if (tokens.verify(secret, requestToken)) {
-  //     if (!usersWithSameName) {
-  //       // console.log(user);
-  //       // console.log(body);
-  //       insertUser(user)
-  //         .then(() => console.log('succeeded!'))
-  //         .catch((err) => console.error('didnt work', err));
-  //     } else {
-  //       console.log('already exists');
-  //     }
-  //   } else {
-  //     console.error('CSRF WENT WRONG');
-  //   }
-  // });
   return {
     props: {
       csrfToken: tokens.create(secret),

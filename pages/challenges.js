@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,6 +9,7 @@ import AddChallengeButton from '../components/AddChallengeButton';
 
 export default function Challenges(props) {
   // console.log('props from challenges page', props.oneChallenge);
+  const [category, setCategory] = useState('all');
 
   return (
     <div>
@@ -18,7 +19,55 @@ export default function Challenges(props) {
       </Head>
       <Header />
       <div className="container">
+        <label forHtml="category-select">Choose a category:</label>
+
+        <select
+          name="categories"
+          id="category-select"
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">--Please choose a category--</option>
+          <option value="all">Show all</option>
+          <option value="general">General</option>
+          <option value="trash">Trash</option>
+          <option value="power">Power</option>
+          <option value="transportation">Transportation</option>
+          <option value="food">Food</option>
+        </select>
+
         <ul>
+          {category === 'all'
+            ? props.challenges.map((challenge) => {
+                return (
+                  <li key={challenge.id}>
+                    <img src={challenge.img} alt="challenge"></img>
+
+                    <h3>{challenge.name}</h3>
+                    <p>Category: {challenge.category}</p>
+                    <p>{challenge.description}</p>
+
+                    <AddChallengeButton challengeId={challenge.id} />
+                  </li>
+                );
+              })
+            : props.challenges
+                .filter((challenge) => challenge.category === category)
+                .map((challenge) => {
+                  return (
+                    <li key={challenge.id}>
+                      <img src={challenge.img} alt="challenge"></img>
+
+                      <h3>{challenge.name}</h3>
+                      <p>Category: {challenge.category}</p>
+                      <p>{challenge.description}</p>
+
+                      <AddChallengeButton challengeId={challenge.id} />
+                    </li>
+                  );
+                })}
+        </ul>
+
+        {/* <ul>
           {props.challenges.map((challenge) => {
             return (
               <li key={challenge.id}>
@@ -28,11 +77,11 @@ export default function Challenges(props) {
                 <p>Category: {challenge.category}</p>
                 <p>{challenge.description}</p>
                 {/* <button onClick={onClick}>Challenge accepted!</button> */}
-                <AddChallengeButton challengeId={challenge.id} />
+        {/* <AddChallengeButton challengeId={challenge.id} />
               </li>
             );
           })}
-        </ul>
+        </ul> */}
       </div>
       <Footer />
       <style jsx>{`
