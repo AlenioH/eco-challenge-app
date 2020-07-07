@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "heroku-postbuild": "yarn migrate up && next build",
+    "heroku-postbuild": "yarn migrate up && yarn build",
     "start": "next start -p ${PORT:-\"3000\"}",
     "migrate": "dotenv ley"
   },

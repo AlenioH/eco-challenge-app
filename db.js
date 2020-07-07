@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./extractHerokuDatabaseEnvVars')();
 
 // require('./extractHerokuDatabaseEnvVars')(); will need that later for deployment
 const argon2 = require('argon2');
