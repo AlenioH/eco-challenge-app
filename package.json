@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "heroku-postbuild": "yarn migrate up && next build",
-    "build": "next build",
     "start": "next start -p ${PORT:-\"3000\"}",
     "migrate": "dotenv ley"
   },
