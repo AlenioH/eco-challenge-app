@@ -43,26 +43,13 @@ export default function Header() {
   // Modal.setAppElement('body'); //i need this for accesability reasons so that screen reader only sees the modal when its open
 
   // const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [createAccount, setCreateAccount] = useState(false);
-
-  // const linkList = [
-  //   { name: 'Home', url: '/' },
-  //   { name: 'Challenges', url: '/challenges' },
-  //   { name: 'Articles', url: '/articles' },
-  // ];
+  // // const [createAccount, setCreateAccount] = useState(false);
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [status, setStatus] = useState('');
 
   const [user, setUser] = useState('');
   const [link, setLink] = useState('');
-
-  // if (!user) {
-  //   linkList.push({ name: 'Login', url: '/login' });
-  //   linkList.push({ name: 'Sign up', url: '/register' });
-  // } else {
-  //   linkList.push(
-  //     { name: 'Logged in as ' + user, url: '/profile/' + link }, //is of course undefined ATM, but basically works
-  //     { name: 'Logout', url: '/logout' },
-  //   );
-  // }
 
   useEffect(() => {
     fetch('/api/checkLogin', {
@@ -104,17 +91,6 @@ export default function Header() {
 
   return (
     <div className="navigation">
-      {/* <ul>
-        {linkList.map((item) => {
-          return (
-            <li key={item.url}>
-              <Link href={item.url}>
-                <a>{item.name}</a>
-              </Link>
-            </li>
-          );
-        })}
-      </ul> */}
       <ul>
         <li>
           <Link href="/">
@@ -154,53 +130,34 @@ export default function Header() {
           </div>
         )}
       </ul>
-      {/* <button onClick={() => setModalIsOpen(true)}>
-              Login or Signup
-            </button>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={() => setModalIsOpen(false)}
-              style={customStyle}
-            >
-              <button className="close" onClick={() => setModalIsOpen(false)}>
-                &times;
-              </button>
-              <Form modalIsOpen={modalIsOpen} createAccount={createAccount} /> */}
+      {/* <button onClick={() => setModalIsOpen(true)}>Login</button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={customStyle}
+      >
+        <button className="close" onClick={() => setModalIsOpen(false)}>
+          &times;
+        </button>
+        {/* <Form modalIsOpen={modalIsOpen} /> */}
       {/* <form method="POST">
-                <button className="close" onClick={() => setModalIsOpen(false)}>
-                  &times;
-                </button>
+          <input
+            name="name"
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          ></input>
 
-                <input name="name" placeholder="username"></input>
+          <input
+            name="password"
+            type="password"
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+          ></input>
 
-                <input type="password" placeholder="password"></input>
-                <input
-                  type="hidden"
-                  name="csrf"
-                  value={props.csrfToken}
-                ></input>
-                {createAccount === true ? (
-                  <>
-                    {' '}
-                    <label forHtml="email"></label>
-                    <input
-                      id="email"
-                      type="email"
-                      placeholder="email"
-                    ></input>{' '}
-                  </>
-                ) : (
-                  ''
-                )}
-                <button>submit</button>
-                {/* <button onClick={() => setCreateAccount(!createAccount)}>
-                  Login{' '}
-                </button> */}
-      {/* <button onClick={() => setCreateAccount(true)}>
-                  Create an account
-                </button> */}
-      {/* </form> */}
-      {/* </Modal> */}
+          <button onSubmit={onSubmit}>submit</button>
+          <p>{status}</p>
+        </form>
+      </Modal> */}
 
       <style jsx>{`
         .navigation {
