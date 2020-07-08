@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@chakra-ui/core": "^1.0.0-next.2",
+    "@datepicker-react/hooks": "^2.7.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@sendgrid/mail": "^7.2.1",
@@ -30,9 +31,11 @@
     "query-string": "^6.13.1",
     "react": "16.13.1",
     "react-calendar": "^3.1.0",
+    "react-datepicker": "^3.0.0",
     "react-dom": "16.13.1",
     "react-modal": "^3.11.2",
     "react-share": "^4.2.0",
+    "simple-react-calendar": "^2.2.7",
     "unirest": "^0.6.0"
   },
   "devDependencies": {

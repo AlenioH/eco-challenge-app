@@ -11,9 +11,11 @@ import Calendar from 'react-calendar';
 export default function Challenges(props) {
   // console.log('props from challenges page', props.oneChallenge);
   const [category, setCategory] = useState('all');
-  const [date, setDate] = useState(new Date());
+  const [value, onChange] = useState(new Date());
   //new Date() = current date and time 2020-07-08T09:06:50.057Z
+  console.log('value calendar', value); //ok this value thing changes on click and shows the date you choose
 
+  // onClickDay	Function called when the user clicks a day.	n/a	(value, event) => alert('Clicked day: ', value)
   return (
     <div>
       <Head>
@@ -51,10 +53,7 @@ export default function Challenges(props) {
                     <p>How many days it will take you: {challenge.days}</p>
 
                     <AddChallengeButton challengeId={challenge.id} />
-                    <Calendar
-                      className="react-calendar"
-                      onChange={(e) => setDate(e.target.value)}
-                    />
+                    <Calendar onChange={onChange} value={value} />
                   </li>
                 );
               })
@@ -70,7 +69,7 @@ export default function Challenges(props) {
                       <p>{challenge.description}</p>
 
                       <AddChallengeButton challengeId={challenge.id} />
-                      <Calendar />
+                      <Calendar onChange={onChange} value={value} />
                     </li>
                   );
                 })}
@@ -102,7 +101,9 @@ export default function Challenges(props) {
         }
 
         .react-calendar {
-          width: 100px;
+          width: 80%;
+          color: red;
+          border: 8px dotted pink;
         }
 
         ul {
