@@ -9,13 +9,24 @@ import Calendar from 'react-calendar';
 // import OneChallenge from './[id]';
 
 export default function Challenges(props) {
-  // console.log('props from challenges page', props.oneChallenge);
   const [category, setCategory] = useState('all');
   const [value, onChange] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState('hide');
   //new Date() = current date and time 2020-07-08T09:06:50.057Z
   console.log('value calendar', value); //ok this value thing changes on click and shows the date you choose
 
+  const dateToday = new Date();
+  const diffTime = Math.abs(value - dateToday);
+  // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  console.log(diffTime + ' milliseconds');
+  // console.log(diffDays + " days");
+
   // onClickDay	Function called when the user clicks a day.	n/a	(value, event) => alert('Clicked day: ', value)
+
+  // function handleClick() {
+  //   setShowCalendar('show');
+  // }
+
   return (
     <div>
       <Head>
@@ -52,8 +63,23 @@ export default function Challenges(props) {
                     <p>{challenge.description}</p>
                     <p>How many days it will take you: {challenge.days}</p>
 
-                    <AddChallengeButton challengeId={challenge.id} />
-                    <Calendar onChange={onChange} value={value} />
+                    <AddChallengeButton
+                      challengeId={challenge.id}
+                      time={diffTime}
+                    />
+                    <button onClick={(e) => setShowCalendar('show')}>
+                      Pick a start date
+                    </button>
+                    <Calendar
+                      style={
+                        showCalendar === 'hide'
+                          ? 'display : none'
+                          : 'display : block'
+                      }
+                      className="calendarStyle"
+                      onChange={onChange}
+                      value={value}
+                    />
                   </li>
                 );
               })
@@ -100,7 +126,7 @@ export default function Challenges(props) {
           margin-top: 10rem;
         }
 
-        .react-calendar {
+        .calendarStyle {
           width: 80%;
           color: red;
           border: 8px dotted pink;
