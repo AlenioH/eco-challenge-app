@@ -11,8 +11,11 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export default async function addChallenge(req, res) {
   const token = req.cookies.token;
   const challengeId = req.body.challengeId;
-  const timeTillEmail = req.body.timeTillEmail;
-  console.log('timmeeeee', timeTillEmail);
+  const timeTillEmail =
+    req.body.timeTillEmail > 0
+      ? req.body.timeTillEmail + 25200000
+      : req.body.timeTillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
+  console.log('timme till email', timeTillEmail);
   // console.log('token from addChallenge API: ', token);
   // console.log('challengeID from addCh API:', challengeId);
 
@@ -21,12 +24,19 @@ export default async function addChallenge(req, res) {
   const userId = session[0].user_id;
   const user = await getUserById(userId);
   const challenge = await getChallengeById(challengeId);
+  console.log('challende from add api', challenge[0].name);
 
   const userChallenges = await checkChallengeByUserAndChallenge(
     challengeId,
     userId,
   );
 
+  const msg = {
+    to: user.email,
+    from: 'challenge@alenio.works',
+    subject: 'Challenge reminder',
+    text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now! challenge start day picked: 9th july + adjusted email time to 7 am (i guess)`,
+  };
   //because db query return an array we can do=>
   // console.log(res.json(session.length));
 
@@ -34,21 +44,22 @@ export default async function addChallenge(req, res) {
   //if length of userChallenges is > 0 means the user already added this challenge
   if (session.length !== 0) {
     if (userChallenges.length === 0) {
-      await insertUserChallenge(challengeId, session[0].user_id)
-        .then(() => {
-          const msg = {
-            to: user.email,
-            from: 'challenge@alenio.works',
-            subject: 'Challenge reminder',
-            text: `Hey there! you signed up for a challende ${challenge.name} : ${challenge.description}. The time to act is now! `,
-          };
-          setTimeout(() => {
-            sgMail.send(msg);
-          }, timeTillEmail);
+      await insertUserChallenge(challengeId, session[0].user_id);
+      setTimeout(() => {
+        sgMail.send(msg); //should receive veggie day at 7 am, lets see
+      }, timeTillEmail); //this presumably still works if the value is negative, gets run immediately
+      // if (timeTillEmail > 0) {
+      //   setTimeout(() => {
+      //     sgMail.send(msg);
+      //   }, timeTillEmail); //2 minutes so if the time till email is not today, i should het the email in 1 min
+      //   // timeTillEmail + 25200000); //at 7 am on the chosen day
+      // } else {
+      //   sgMail.send(msg);
+      // }
+      // sgMail.send(msg);
+      console.log('challenge addedd successfully');
 
-          console.log('challenge addedd successfully');
-        })
-        .catch((err) => console.error('addid challenge went wrong', err));
+      // .catch((err) => console.error('addid challenge went wrong', err));
     } else {
       console.log('challenge already exists');
     }

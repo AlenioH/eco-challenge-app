@@ -11,12 +11,13 @@ import Calendar from 'react-calendar';
 export default function Challenges(props) {
   const [category, setCategory] = useState('all');
   const [value, onChange] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState('hide');
+  const [showCalendar, setShowCalendar] = useState(false);
   //new Date() = current date and time 2020-07-08T09:06:50.057Z
   console.log('value calendar', value); //ok this value thing changes on click and shows the date you choose
 
   const dateToday = new Date();
-  const diffTime = Math.abs(value - dateToday);
+  const diffTime = value - dateToday; //if value is today then the number is negative, if user doesn't choose anything it's 0
+
   // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   console.log(diffTime + ' milliseconds');
   // console.log(diffDays + " days");
@@ -67,19 +68,25 @@ export default function Challenges(props) {
                       challengeId={challenge.id}
                       time={diffTime}
                     />
-                    <button onClick={(e) => setShowCalendar('show')}>
+                    <button onClick={(e) => setShowCalendar(true)}>
                       Pick a start date
                     </button>
-                    <Calendar
+                    <div
                       style={
-                        showCalendar === 'hide'
-                          ? 'display : none'
-                          : 'display : block'
+                        !showCalendar
+                          ? { display: 'none' }
+                          : { display: 'block' }
                       }
-                      className="calendarStyle"
-                      onChange={onChange}
-                      value={value}
-                    />
+                    >
+                      <Calendar
+                        className="calendarStyle"
+                        onChange={onChange}
+                        value={value}
+                      />
+                      <button onClick={(e) => setShowCalendar(false)}>
+                        Close calendar
+                      </button>
+                    </div>
                   </li>
                 );
               })
@@ -95,27 +102,29 @@ export default function Challenges(props) {
                       <p>{challenge.description}</p>
 
                       <AddChallengeButton challengeId={challenge.id} />
-                      <Calendar onChange={onChange} value={value} />
+                      <button onClick={() => setShowCalendar(true)}>
+                        Pick a start date
+                      </button>
+                      <div
+                        style={
+                          !showCalendar
+                            ? { display: 'none' }
+                            : { display: 'block' }
+                        }
+                      >
+                        <Calendar
+                          className="calendarStyle"
+                          onChange={onChange}
+                          value={value}
+                        />
+                        <button onClick={() => setShowCalendar(false)}>
+                          Close calendar
+                        </button>
+                      </div>
                     </li>
                   );
                 })}
         </ul>
-
-        {/* <ul>
-          {props.challenges.map((challenge) => {
-            return (
-              <li key={challenge.id}>
-                <img src={challenge.img} alt="challenge"></img>
-
-                <h3>{challenge.name}</h3>
-                <p>Category: {challenge.category}</p>
-                <p>{challenge.description}</p>
-                {/* <button onClick={onClick}>Challenge accepted!</button> */}
-        {/* <AddChallengeButton challengeId={challenge.id} />
-              </li>
-            );
-          })}
-        </ul> */}
       </div>
       <Footer />
       <style jsx>{`
@@ -124,12 +133,6 @@ export default function Challenges(props) {
           margin-left: auto;
           margin-right: auto;
           margin-top: 10rem;
-        }
-
-        .calendarStyle {
-          width: 80%;
-          color: red;
-          border: 8px dotted pink;
         }
 
         ul {

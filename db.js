@@ -115,7 +115,7 @@ export async function getChallenges() {
   const challenges = await sql`
   SELECT * FROM challenges
   `;
-  console.log(challenges);
+  // console.log(challenges);
   return challenges;
 }
 
