@@ -48,6 +48,7 @@ export default function Challenges(props) {
                     <h3>{challenge.name}</h3>
                     <p>Category: {challenge.category}</p>
                     <p>{challenge.description}</p>
+                    <p>How many days it will take you: {challenge.days}</p>
 
                     <AddChallengeButton challengeId={challenge.id} />
                     <Calendar
