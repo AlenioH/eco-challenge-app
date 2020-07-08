@@ -67,20 +67,20 @@ export default function profilePage(props) {
                           userId={props.user.id}
                         />
                         <FacebookShareButton
-                          url="www.google.com"
-                          quote={`Look what I'm up to! ${challenge.name}`}
+                          url="https://so-green-eco-challenge.herokuapp.com/challenges"
+                          quote={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
                         >
                           <FacebookIcon size={32} round={true} />
                         </FacebookShareButton>
                         <TwitterShareButton
-                          url="www.google.com"
-                          title={`Look what I'm up to! ${challenge.name}`}
+                          url="https://so-green-eco-challenge.herokuapp.com/challenges"
+                          title={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
                         >
                           <TwitterIcon size={32} round={true} />
                         </TwitterShareButton>
                         <WhatsappShareButton
-                          url="www.google.com"
-                          title={`Look what I'm up to! ${challenge.name}`}
+                          url="https://so-green-eco-challenge.herokuapp.com/challenges"
+                          title={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
                           separator=":: "
                         >
                           <WhatsappIcon size={32} round />
