@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AddChallengeButton from '../components/AddChallengeButton';
+import Calendar from 'react-calendar';
 
 // import Link from 'next/link';
 // import OneChallenge from './[id]';
@@ -10,6 +11,8 @@ import AddChallengeButton from '../components/AddChallengeButton';
 export default function Challenges(props) {
   // console.log('props from challenges page', props.oneChallenge);
   const [category, setCategory] = useState('all');
+  const [date, setDate] = useState(new Date());
+  //new Date() = current date and time 2020-07-08T09:06:50.057Z
 
   return (
     <div>
@@ -47,6 +50,10 @@ export default function Challenges(props) {
                     <p>{challenge.description}</p>
 
                     <AddChallengeButton challengeId={challenge.id} />
+                    <Calendar
+                      className="react-calendar"
+                      onChange={(e) => setDate(e.target.value)}
+                    />
                   </li>
                 );
               })
@@ -62,6 +69,7 @@ export default function Challenges(props) {
                       <p>{challenge.description}</p>
 
                       <AddChallengeButton challengeId={challenge.id} />
+                      <Calendar />
                     </li>
                   );
                 })}
@@ -90,6 +98,10 @@ export default function Challenges(props) {
           margin-left: auto;
           margin-right: auto;
           margin-top: 10rem;
+        }
+
+        .react-calendar {
+          width: 100px;
         }
 
         ul {
