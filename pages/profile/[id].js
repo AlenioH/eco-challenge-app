@@ -195,6 +195,7 @@ export async function getServerSideProps(context) {
     getCompletedChallengesByUserId,
   } = await import('../../db');
   const user = await getUserById(context.params.id);
+
   // console.log('user from id page', user.id);
   const userChallenges = await getChallengeByUserId(user.id);
   // console.log('userChallenges from profile page', userChallenges);

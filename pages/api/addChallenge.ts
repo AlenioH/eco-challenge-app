@@ -15,6 +15,7 @@ export default async function addChallenge(req, res) {
     req.body.timeTillEmail > 0
       ? req.body.timeTillEmail + 25200000
       : req.body.timeTillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
+
   console.log('timme till email', timeTillEmail);
   // console.log('token from addChallenge API: ', token);
   // console.log('challengeID from addCh API:', challengeId);
@@ -35,7 +36,7 @@ export default async function addChallenge(req, res) {
     to: user.email,
     from: 'challenge@alenio.works',
     subject: 'Challenge reminder',
-    text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now! challenge start day picked: 9th july + adjusted email time to 7 am (i guess)`,
+    text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now! in 30 min`,
   };
   //because db query return an array we can do=>
   // console.log(res.json(session.length));
@@ -47,7 +48,8 @@ export default async function addChallenge(req, res) {
       await insertUserChallenge(challengeId, session[0].user_id);
       setTimeout(() => {
         sgMail.send(msg); //should receive veggie day at 7 am, lets see
-      }, timeTillEmail); //this presumably still works if the value is negative, gets run immediately
+      }, timeTillEmail);
+      console.log('time from functiom', timeTillEmail); //this presumably still works if the value is negative, gets run immediately
       // if (timeTillEmail > 0) {
       //   setTimeout(() => {
       //     sgMail.send(msg);
