@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Alert from '@material-ui/core/Button';
+import AlertTitle from '@material-ui/core/Button';
 
 export default function AddChallengeButton(props) {
+  const [status, setStatus] = useState('');
   // console.log('props from button', props.challengeId);
   //props.time === is the difference in seconds between the date now and the picked date by the user
   function onClick() {
@@ -18,6 +21,7 @@ export default function AddChallengeButton(props) {
         if (response.ok !== true) {
           console.log('response from add challenge not OK'); //there mb i can show status you need to log in
           alert('You need to log in to add challenges');
+          setStatus('need login');
         }
         console.log(response);
         return response.json();
@@ -25,14 +29,13 @@ export default function AddChallengeButton(props) {
       .then((json) => {
         if (json.challengeExists === true) {
           alert('You already committed to this challenge!');
+          setStatus('already committed');
         } else {
           if (json.addChallenge === true) {
             console.log('challenge added successfully!');
             alert('challenge added successfully!');
-            // Redirect to homepage after 2 seconds
-            // setTimeout(() => {
-            //   Router.replace('/');
-            // }, 1000);
+
+            setStatus('success');
           } else {
             console.log('smth failed with challenges');
           }
@@ -43,6 +46,31 @@ export default function AddChallengeButton(props) {
 
   return (
     <div>
+      {/* {status === 'need login' ? (
+        <Alert severity="warning">
+          <AlertTitle>Warning</AlertTitle>
+          <strong>You need to login </strong> to add challenges!
+        </Alert>
+      ) : (
+        ''
+      )}
+      {status === 'already committed' ? (
+        <Alert severity="info">
+          <AlertTitle>Info</AlertTitle>
+          This is an info alert — <strong>check it out!</strong>
+        </Alert>
+      ) : (
+        ''
+      )}
+      {status === 'success' ? (
+        <Alert severity="success">
+          <AlertTitle>Success</AlertTitle>
+          This is a success alert — <strong>check it out!</strong>
+        </Alert>
+      ) : (
+        ''
+      )} */}
+
       <button onClick={onClick}> Challenge accepted</button>
       <style jsx>{`
         button {

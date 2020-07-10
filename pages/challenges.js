@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AddChallengeButton from '../components/AddChallengeButton';
 import Calendar from 'react-calendar';
+import Alert from '@material-ui/core/Button';
 
 // import Link from 'next/link';
 // import OneChallenge from './[id]';
