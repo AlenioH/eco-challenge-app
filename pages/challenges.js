@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AddChallengeButton from '../components/AddChallengeButton';
-import Calendar from 'react-calendar';
+// import Calendar from 'react-calendar';
 import Alert from '@material-ui/core/Button';
 
 // import Link from 'next/link';
@@ -11,16 +11,16 @@ import Alert from '@material-ui/core/Button';
 
 export default function Challenges(props) {
   const [category, setCategory] = useState('all');
-  const [value, onChange] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false);
+  // const [value, onChange] = useState(new Date());
+  // const [showCalendar, setShowCalendar] = useState(false);
   //new Date() = current date and time 2020-07-08T09:06:50.057Z
-  console.log('value calendar', value); //ok this value thing changes on click and shows the date you choose
+  // console.log('value calendar', value); //ok this value thing changes on click and shows the date you choose
 
-  const dateToday = new Date();
-  const diffTime = value - dateToday; //if value is today then the number is negative, if user doesn't choose anything it's 0
+  // const dateToday = new Date();
+  // const diffTime = value - dateToday; //if value is today then the number is negative, if user doesn't choose anything it's 0
 
-  // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  console.log(diffTime + ' milliseconds');
+  // // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // console.log(diffTime + ' milliseconds');
   // console.log(diffDays + " days");
 
   // onClickDay	Function called when the user clicks a day.	n/a	(value, event) => alert('Clicked day: ', value)
@@ -65,11 +65,8 @@ export default function Challenges(props) {
                     <p>{challenge.description}</p>
                     <p>How many days it will take you: {challenge.days}</p>
 
-                    <AddChallengeButton
-                      challengeId={challenge.id}
-                      time={diffTime}
-                    />
-                    <button onClick={(e) => setShowCalendar(true)}>
+                    <AddChallengeButton challengeId={challenge.id} />
+                    {/* <button onClick={(e) => setShowCalendar(true)}>
                       Pick a start date
                     </button>
                     <div
@@ -87,7 +84,7 @@ export default function Challenges(props) {
                       <button onClick={(e) => setShowCalendar(false)}>
                         Close calendar
                       </button>
-                    </div>
+                    </div> */}
                   </li>
                 );
               })
@@ -103,7 +100,7 @@ export default function Challenges(props) {
                       <p>{challenge.description}</p>
 
                       <AddChallengeButton challengeId={challenge.id} />
-                      <button onClick={() => setShowCalendar(true)}>
+                      {/* <button onClick={() => setShowCalendar(true)}>
                         Pick a start date
                       </button>
                       <div
@@ -121,7 +118,7 @@ export default function Challenges(props) {
                         <button onClick={() => setShowCalendar(false)}>
                           Close calendar
                         </button>
-                      </div>
+                      </div> */}
                     </li>
                   );
                 })}

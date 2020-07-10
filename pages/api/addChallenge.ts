@@ -39,7 +39,6 @@ export default async function addChallenge(req, res) {
     from: 'challenge@alenio.works',
     subject: 'Challenge reminder',
     text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now! in 30 min`,
-    send_at: timeTillEmail,
   };
 
   //because db query return an array we can do=>

@@ -250,3 +250,5 @@ export default function Header() {
     </div>
   );
 }
+// @media only screen and (max-width: 600px)  {...}
+// What this query really means, is “If [device width] is less than or equal to 600px, then do {…}”
