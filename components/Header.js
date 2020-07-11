@@ -50,6 +50,7 @@ export default function Header() {
 
   const [user, setUser] = useState('');
   const [link, setLink] = useState('');
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     fetch('/api/checkLogin', {
@@ -91,45 +92,113 @@ export default function Header() {
 
   return (
     <div className="navigation">
-      <ul>
-        <li>
+      <div className="desktop">
+        <ul>
+          <li>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/challenges">
+              <a>Challenges</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/articles">
+              <a>Articles</a>
+            </Link>
+          </li>
+          {!user ? (
+            <div className="login">
+              <Link href="/login">
+                <a>Login </a>
+              </Link>
+              <Link href="register">
+                <a>Sign up</a>
+              </Link>
+            </div>
+          ) : (
+            <div className="login">
+              <Link href={'/profile/' + link}>
+                <a>
+                  {' '}
+                  Logged in as <span className="username">{user}</span>
+                </a>
+              </Link>
+              <Link href="/logout">
+                <a>Logout</a>
+              </Link>
+            </div>
+          )}
+        </ul>
+      </div>
+
+      <div className="mobile">
+        <div className="logoAndButtonsMob">
           <Link href="/">
-            <a>Home</a>
+            <a>
+              <img src="/logo.png" alt="green leaf"></img>
+            </a>
           </Link>
-        </li>
-        <li>
-          <Link href="/challenges">
-            <a>Challenges</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/articles">
-            <a>Articles</a>
-          </Link>
-        </li>
-        {!user ? (
-          <div className="login">
-            <Link href="/login">
-              <a>Login </a>
-            </Link>
-            <Link href="register">
-              <a>Sign up</a>
-            </Link>
-          </div>
-        ) : (
-          <div className="login">
+          {user ? (
             <Link href={'/profile/' + link}>
               <a>
-                {' '}
-                Logged in as <span className="username">{user}</span>
+                <span className="username">{user}</span>
               </a>
             </Link>
-            <Link href="/logout">
-              <a>Logout</a>
-            </Link>
-          </div>
+          ) : (
+            ''
+          )}
+
+          {showMenu === false ? (
+            <button className="showMenu" onClick={() => setShowMenu(!showMenu)}>
+              &#8801;
+            </button>
+          ) : (
+            <button className="showMenu" onClick={() => setShowMenu(!showMenu)}>
+              {' '}
+              &times;{' '}
+            </button>
+          )}
+        </div>
+
+        {showMenu === true ? (
+          <ul className="mobileList">
+            <li>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/challenges">
+                <a>Challenges</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/articles">
+                <a>Articles</a>
+              </Link>
+            </li>
+            {!user ? (
+              <>
+                <Link href="/login">
+                  <a>Login </a>
+                </Link>
+                <Link href="register">
+                  <a>Sign up</a>
+                </Link>{' '}
+              </>
+            ) : (
+              <Link href="/logout">
+                <a>Logout</a>
+              </Link>
+            )}
+          </ul>
+        ) : (
+          ''
         )}
-      </ul>
+      </div>
       {/* <button onClick={() => setModalIsOpen(true)}>Login</button>
       <Modal
         isOpen={modalIsOpen}
@@ -164,7 +233,7 @@ export default function Header() {
           border-bottom: 2px solid black;
           position: fixed;
           top: 0;
-          width: 100vw;
+          width: 100%;
           background-image: url('/bg.jpg');
         }
         ul {
@@ -174,17 +243,17 @@ export default function Header() {
           width: 100%;
           justify-content: space-around;
           align-items: center;
-          font-size: 1.4rem;
+          font-size: 22px;
           font-weight: 800;
-          padding-left: 3rem;
-          margin-bottom: 0.4rem;
+          padding-left: 48px;
+          margin-bottom: 7px;
         }
 
         li a {
           color: black;
           text-shadow: 2px 2px white;
           text-decoration: none;
-          padding: 0 3rem;
+          padding: 0 20px;
         }
 
         button {
@@ -192,8 +261,8 @@ export default function Header() {
           font-family: inherit;
           padding: 5px;
           border-radius: 5px;
-          margin-right: 2rem;
-          font-size: 1.2rem;
+          margin-right: 10px;
+          font-size: 18px;
           margin-top: 5px;
         }
 
@@ -205,13 +274,13 @@ export default function Header() {
           margin-left: auto;
           display: flex;
           flex-direction: column;
-          padding: 0.2rem;
+          padding: 2px;
         }
         .login a {
           text-decoration: none;
           color: white;
-          font-size: 1.2rem;
-          padding: 0.3rem;
+          font-size: 12px;
+          padding: 3px;
           border: 1px solid white;
           border-radius: 5px;
         }
@@ -232,6 +301,72 @@ export default function Header() {
         .close {
           align-self: flex-end;
         }
+
+        @media (max-width: 850px) {
+          .desktop {
+            display: none;
+          }
+
+          .mobile {
+            display: flex;
+            flex-direction: ${showMenu === true ? 'column' : 'row'};
+            align-items: center;
+          }
+
+          .logoAndButtonsMob {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+          }
+
+          .logoAndButtonsMob img {
+            width: 200px;
+            margin-right: auto;
+          }
+
+          button:hover {
+            background-color: lightgray;
+          }
+          .navigation {
+            height: ${showMenu === true ? '100%' : 'inherit'};
+          }
+
+          .showMenu {
+            margin-left: auto;
+            font-size: 30px;
+            padding: 10px 14px;
+            border-radius: 8px;
+          }
+          .mobile ul,
+          .mobile ul a {
+            font-size: 50px;
+            padding-top: 30px;
+            border-bottom: 2px solid black;
+          }
+          .mobile ul li {
+            padding-top: 40px;
+          }
+          .mobile {
+            display: flex;
+            flex-direction: column;
+          }
+          a {
+            text-decoration: none;
+            color: inherit;
+            text-shadow: 2px 2px white;
+            font-size: 30px;
+          }
+        }
+        @media (min-width: 850px) {
+          .mobile {
+            display: none;
+          }
+        }
+        .mobileList {
+          display: flex;
+          flex-direction: column;
+        }
       `}</style>
       <style jsx global>{`
         html,
@@ -250,5 +385,7 @@ export default function Header() {
     </div>
   );
 }
-// @media only screen and (max-width: 600px)  {...}
-// What this query really means, is “If [device width] is less than or equal to 600px, then do {…}”
+{
+  /* // @media only screen and (max-width: 600px)  {...}
+// What this query really means, is “If [device width] is less than or equal to 600px, then do {…}” */
+}
