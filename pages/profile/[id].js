@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -9,18 +9,17 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'react-share';
-// import {
-//   FacebookShareCount,
-//   OKShareCount,
-//   PinterestShareCount,
-//   RedditShareCount,
-//   TumblrShareCount,
-//   VKShareCount,
-// } from 'react-share';
+import Checkbox from '@material-ui/core/Checkbox';
+import cookies from 'js-cookie';
 
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
-export default function profilePage(props) {
+export default function ProfilePage(props) {
   // console.log('props from the profile page', props);
+  const [checked, setChecked] = useState(false);
+
+  function handleClick(e) {
+    setChecked(!checked);
+  }
 
   //   <div className="Demo__some-network">
   //   <FacebookShareButton
@@ -48,6 +47,7 @@ export default function profilePage(props) {
       <div className="container">
         <h1>Your profile</h1>
         <h2>{props.user.username}</h2>
+
         <div className="challenges">
           <div className="activeChallenges">
             <h3>Active challenges</h3>
@@ -70,6 +70,45 @@ export default function profilePage(props) {
                             )
                             .map((item) => item.start_date.slice(0, 10))}
                         </p>
+                        {challenge.days > 0 ? (
+                          <>
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />{' '}
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />{' '}
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />{' '}
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />{' '}
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />{' '}
+                            <Checkbox
+                              onChange={handleClick}
+                              checked={checked}
+                            />
+                            {/* <input
+                              type="checkbox"
+                              checked={'checked'}
+                              onChange={'handleClick'}
+                            /> */}
+                          </>
+                        ) : (
+                          ''
+                        )}
                         <ChallengeCompletedButton
                           challengeId={challenge.id}
                           userId={props.user.id}
@@ -212,7 +251,6 @@ export async function getServerSideProps(context) {
   } = await import('../../db');
   const user = await getUserById(context.params.id);
 
-  // console.log('user from id page', user.id);
   const userChallenges = await getChallengeByUserId(user.id);
   // console.log('userChallenges from profile page', userChallenges);
   //returns an array of objects: [
@@ -229,16 +267,14 @@ export async function getServerSideProps(context) {
   // console.log('challengestoshow prof page', challengesToShow); //if i don't do it like that, the whole profile page crushes when there are no challenges
 
   const completedChallenges = await getCompletedChallengesByUserId(user.id);
-  // console.log('completed challe', completedChallenges);
+
   const complChalId = completedChallenges.map((item) => item.challenge_id);
 
   const completedToShow =
     completedChallenges.length > 0 ? await getChallengesByIds(complChalId) : [];
-  // console.log('completedtoshow', completedToShow);
   return {
     props: {
       user: user,
-      // challenges: userChallenges, don't actually need it as a prop
       challengesToShow,
       userChallenges,
       completedToShow,
