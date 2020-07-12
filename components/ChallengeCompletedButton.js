@@ -4,10 +4,8 @@ import Router from 'next/router';
 export default function ChallengeCompletedButton(props) {
   // console.log('props from button', props);
 
-  // useEffect(() => {
-  //   function handleStatusChange(status) {
-  //     setIsOnline(status.isOnline);
-  //   }
+  // const date = new Date();
+  // console.log('date completed', date.slice(0, 10));
 
   function onClick() {
     fetch('/api/completeChallenge', {
@@ -18,6 +16,7 @@ export default function ChallengeCompletedButton(props) {
       body: JSON.stringify({
         challengeId: props.challengeId,
         userId: props.userId,
+        finishDate: new Date(),
       }),
     })
       .then((response) => {

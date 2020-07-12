@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import checkChallenge from '../../components/checkChallenge';
 import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
 import DeleteChallengeButton from '../../components/DeleteChallengeButton';
 import {
@@ -62,6 +63,7 @@ export default function ProfilePage(props) {
                         <p>Category: {challenge.category}</p>
 
                         <p>{challenge.description}</p>
+
                         <p>
                           Starting on:{' '}
                           {props.userChallenges
@@ -70,36 +72,14 @@ export default function ProfilePage(props) {
                             )
                             .map((item) => item.start_date.slice(0, 10))}
                         </p>
-                        {challenge.days > 0 ? (
+                        {challenge.days > 1 ? (
                           <>
                             <Checkbox
                               onChange={handleClick}
                               checked={checked}
                             />{' '}
-                            <Checkbox
-                              onChange={handleClick}
-                              checked={checked}
-                            />{' '}
-                            <Checkbox
-                              onChange={handleClick}
-                              checked={checked}
-                            />{' '}
-                            <Checkbox
-                              onChange={handleClick}
-                              checked={checked}
-                            />
-                            <Checkbox
-                              onChange={handleClick}
-                              checked={checked}
-                            />{' '}
-                            <Checkbox
-                              onChange={handleClick}
-                              checked={checked}
-                            />{' '}
-                            <Checkbox
-                              onChange={handleClick}
-                              checked={checked}
-                            />
+                            <Checkbox /> <Checkbox /> <Checkbox />
+                            <Checkbox /> <Checkbox /> <Checkbox />
                             {/* <input
                               type="checkbox"
                               checked={'checked'}
@@ -157,12 +137,12 @@ export default function ProfilePage(props) {
 
                         <p>{challenge.description}</p>
                         <p>
-                          Started on:
-                          {props.userChallenges
+                          Finished on:
+                          {props.completedChallenges
                             .filter(
                               (item) => item.challenge_id === challenge.id,
                             )
-                            .map((item) => item.start_date.slice(0, 10))}
+                            .map((item) => item.finish_date.slice(0, 10))}
                         </p>
                         <DeleteChallengeButton
                           challengeId={challenge.id}
@@ -272,12 +252,14 @@ export async function getServerSideProps(context) {
 
   const completedToShow =
     completedChallenges.length > 0 ? await getChallengesByIds(complChalId) : [];
+
   return {
     props: {
       user: user,
       challengesToShow,
       userChallenges,
       completedToShow,
+      completedChallenges,
     },
   };
 }

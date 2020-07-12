@@ -12,8 +12,9 @@ export default async function addChallenge(req, res) {
   const token = req.cookies.token;
   const challengeId = req.body.challengeId;
   const timeTillEmail =
-    req.body.startDate > 0 ? req.body.startDate + 25200000 : req.body.startDate; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
+    req.body.tillEmail > 0 ? req.body.startDate + 25200000 : req.body.startDate; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
   console.log('timme till email', timeTillEmail);
+  console.log('till emaillll3333', req.body.tillEmail);
   // console.log('token from addChallenge API: ', token);
   // console.log('challengeID from addCh API:', challengeId);
 
@@ -29,8 +30,6 @@ export default async function addChallenge(req, res) {
     userId,
   );
 
-  // const dateToInsert = req.body.startDate.getDate();
-  // console.log('date to insert', dateToInsert);
   //60 000 ms in 1 min
   // 60000 * 60 * 13
 
@@ -38,7 +37,7 @@ export default async function addChallenge(req, res) {
     to: user.email,
     from: 'challenge@alenio.works',
     subject: 'Challenge reminder',
-    text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now! in 30 min`,
+    text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now!`,
   };
 
   //because db query return an array we can do=>
@@ -55,7 +54,7 @@ export default async function addChallenge(req, res) {
       );
 
       setTimeout(() => {
-        sgMail.send(msg); //should receive veggie day at 7 am, lets see
+        sgMail.send(msg);
       }, timeTillEmail);
       // console.log('time from functiom', timeTillEmail); //this presumably still works if the value is negative, gets run immediately
       // if (timeTillEmail > 0) {

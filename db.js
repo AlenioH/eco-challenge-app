@@ -170,9 +170,13 @@ SElECT * FROM user_challenges WHERE challenge_id = ${challengeId} AND user_id = 
   return userChallenges;
 }
 
-export async function insertIntoCompletedChallenges(challengeId, userId) {
+export async function insertIntoCompletedChallenges(
+  challengeId,
+  userId,
+  finishDate,
+) {
   await sql`
-  INSERT INTO completed_challenges(challenge_id, user_id) VALUES (${challengeId}, ${userId})
+  INSERT INTO completed_challenges(challenge_id, user_id, finish_date) VALUES (${challengeId}, ${userId}, ${finishDate})
   `;
 }
 

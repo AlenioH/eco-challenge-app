@@ -7,8 +7,6 @@ export default function AddChallengeButton(props) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [value, onChange] = useState(new Date());
 
-  const timeToInsert = value.getDate();
-  console.log('time insert', timeToInsert);
   // const [status, setStatus] = useState('');
   // console.log('props from button', props.challengeId);
   //props.time === is the difference in seconds between the date now and the picked date by the user
@@ -21,6 +19,7 @@ export default function AddChallengeButton(props) {
       body: JSON.stringify({
         challengeId: props.challengeId,
         startDate: value,
+        tillEmail: value - new Date(),
       }),
     })
       .then((response) => {
