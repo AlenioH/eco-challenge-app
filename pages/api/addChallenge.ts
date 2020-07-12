@@ -12,9 +12,7 @@ export default async function addChallenge(req, res) {
   const token = req.cookies.token;
   const challengeId = req.body.challengeId;
   const timeTillEmail =
-    req.body.timeTillEmail > 0
-      ? req.body.timeTillEmail + 25200000
-      : req.body.timeTillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
+    req.body.startDate > 0 ? req.body.startDate + 25200000 : req.body.startDate; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
   console.log('timme till email', timeTillEmail);
   // console.log('token from addChallenge API: ', token);
   // console.log('challengeID from addCh API:', challengeId);
@@ -31,6 +29,8 @@ export default async function addChallenge(req, res) {
     userId,
   );
 
+  // const dateToInsert = req.body.startDate.getDate();
+  // console.log('date to insert', dateToInsert);
   //60 000 ms in 1 min
   // 60000 * 60 * 13
 
@@ -48,7 +48,11 @@ export default async function addChallenge(req, res) {
   //if length of userChallenges is > 0 means the user already added this challenge
   if (session.length !== 0) {
     if (userChallenges.length === 0) {
-      await insertUserChallenge(challengeId, session[0].user_id);
+      await insertUserChallenge(
+        challengeId,
+        session[0].user_id,
+        req.body.startDate,
+      );
 
       setTimeout(() => {
         sgMail.send(msg); //should receive veggie day at 7 am, lets see

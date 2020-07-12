@@ -62,6 +62,14 @@ export default function profilePage(props) {
                         <p>Category: {challenge.category}</p>
 
                         <p>{challenge.description}</p>
+                        <p>
+                          Starting on:{' '}
+                          {props.userChallenges
+                            .filter(
+                              (item) => item.challenge_id === challenge.id,
+                            )
+                            .map((item) => item.start_date.slice(0, 10))}
+                        </p>
                         <ChallengeCompletedButton
                           challengeId={challenge.id}
                           userId={props.user.id}
@@ -109,6 +117,14 @@ export default function profilePage(props) {
                         <p>Category: {challenge.category}</p>
 
                         <p>{challenge.description}</p>
+                        <p>
+                          Started on:
+                          {props.userChallenges
+                            .filter(
+                              (item) => item.challenge_id === challenge.id,
+                            )
+                            .map((item) => item.start_date.slice(0, 10))}
+                        </p>
                         <DeleteChallengeButton
                           challengeId={challenge.id}
                           userId={props.user.id}
@@ -224,7 +240,7 @@ export async function getServerSideProps(context) {
       user: user,
       // challenges: userChallenges, don't actually need it as a prop
       challengesToShow,
-
+      userChallenges,
       completedToShow,
     },
   };

@@ -329,7 +329,7 @@ export default function Header() {
             background-color: lightgray;
           }
           .navigation {
-            height: ${showMenu === true ? '100%' : 'inherit'};
+            height: ${showMenu === true ? '100%' : ''};
           }
 
           .showMenu {

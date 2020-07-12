@@ -87,7 +87,7 @@ export default function Register(props) {
       </div>
       <style jsx>{`
         .formContainer {
-          margin-top: 8rem;
+          margin-top: 150px;
           display: flex;
           flex-direction: column;
           width: 50%;
@@ -104,8 +104,8 @@ export default function Register(props) {
           justify-content: space-around;
         }
         input {
-          padding: 0.5rem;
-          margin: 0.5rem;
+          padding: 8px;
+          margin: 8px;
           border-radius: 5px;
         }
 

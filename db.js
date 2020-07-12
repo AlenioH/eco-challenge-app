@@ -113,9 +113,9 @@ export async function getChallenges() {
   return challenges;
 }
 
-export async function insertUserChallenge(challengeId, userId) {
+export async function insertUserChallenge(challengeId, userId, startDate) {
   return sql`
-  INSERT INTO user_challenges(challenge_id, user_id) VALUES (${challengeId}, ${userId})
+  INSERT INTO user_challenges(challenge_id, user_id, start_date) VALUES (${challengeId}, ${userId}, ${startDate})
   `;
 }
 

@@ -67,17 +67,17 @@ export default function Home(props) {
       <Footer />
       <style jsx>{`
         .welcomeH1 {
-          margin-top: 7rem;
+          margin-top: 120px;
 
-          margin-left: 3rem;
+          margin-left: 50px;
         }
         .welcome {
           color: black;
           text-shadow: 1px 1px black;
         }
         h2 {
-          margin-left: 3rem;
-          margin-bottom: 5rem;
+          margin-left: 50px;
+          margin-bottom: 80px;
         }
         .topDiv {
           display: flex;
@@ -92,9 +92,9 @@ export default function Home(props) {
           align-items: center;
           width: 30%;
           margin-left: auto;
-          margin-top: 3rem;
-          margin-bottom: 5rem;
-          padding: 1rem;
+          margin-top: 48px;
+          margin-bottom: 80px;
+          padding: 16px;
           height: calc(100vh - 50px);
         }
         .dailyTipImg {
@@ -105,19 +105,19 @@ export default function Home(props) {
           display: grid;
           grid-template-columns: 1fr 2fr;
           width: 90%;
-          margin-top: 2rem;
+          margin-top: 16px;
           margin-left: auto;
           margin-right: auto;
-          line-height: 2rem;
+          line-height: 16px;
         }
         .howItWorksSection {
           display: grid;
           grid-template-columns: 2fr 1fr;
           width: 90%;
-          margin-top: 6rem;
+          margin-top: 96px;
           margin-left: auto;
           margin-right: auto;
-          line-height: 2rem;
+          line-height: 2;
         }
         img {
           height: 350px;
@@ -128,7 +128,7 @@ export default function Home(props) {
           display: flex;
           flex-direction: column;
           align-items: stretch;
-          padding: 2rem;
+          padding: 39px;
         }
         button {
           padding: 10px;
@@ -136,7 +136,7 @@ export default function Home(props) {
           margin-top: 10px;
           font-family: inherit;
           font-weight: 800;
-          font-size: 1.2rem;
+          font-size: 20px;
           color: whitesmoke;
           background-color: #009432;
         }
