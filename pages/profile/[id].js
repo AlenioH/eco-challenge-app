@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import checkChallenge from '../../components/checkChallenge';
+// import checkChallenge from '../../components/checkChallenge';
 import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
 import DeleteChallengeButton from '../../components/DeleteChallengeButton';
 import {
@@ -10,17 +10,17 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'react-share';
-import Checkbox from '@material-ui/core/Checkbox';
-import cookies from 'js-cookie';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import cookies from 'js-cookie';
 
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 export default function ProfilePage(props) {
   // console.log('props from the profile page', props);
   const [checked, setChecked] = useState(false);
 
-  function handleClick(e) {
-    setChecked(!checked);
-  }
+  // function handleClick(e) {
+  //   setChecked(!checked);
+  // }
 
   //   <div className="Demo__some-network">
   //   <FacebookShareButton
@@ -72,7 +72,7 @@ export default function ProfilePage(props) {
                             )
                             .map((item) => item.start_date.slice(0, 10))}
                         </p>
-                        {challenge.days > 1 ? (
+                        {/* {challenge.days > 1 ? (
                           <>
                             <Checkbox
                               onChange={handleClick}
@@ -85,10 +85,10 @@ export default function ProfilePage(props) {
                               checked={'checked'}
                               onChange={'handleClick'}
                             /> */}
-                          </>
+                        {/* </>
                         ) : (
                           ''
-                        )}
+                        )} */}
                         <ChallengeCompletedButton
                           challengeId={challenge.id}
                           userId={props.user.id}

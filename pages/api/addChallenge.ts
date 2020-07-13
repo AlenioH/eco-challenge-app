@@ -23,7 +23,7 @@ export default async function addChallenge(req, res) {
   const userId = session[0].user_id;
   const user = await getUserById(userId);
   const challenge = await getChallengeById(challengeId);
-  console.log('challende from add api', challenge[0].name);
+  // console.log('challende from add api', challenge[0].name);
 
   const userChallenges = await checkChallengeByUserAndChallenge(
     challengeId,
