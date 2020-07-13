@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 
 export default function ChallengeCompletedButton(props) {
@@ -23,11 +23,11 @@ export default function ChallengeCompletedButton(props) {
         if (response.ok !== true) {
           console.log('response from completechallenge not OK');
         }
-        console.log(response);
+
         return response.json();
       })
       .then((json) => {
-        if (json.completeChallenge === true) {
+        if (json.sameUser === true) {
           console.log('challenge complete successfully!');
           alert('congratulations! you rock!');
 

@@ -5,10 +5,7 @@ var cookie = require('cookie');
 export default async function checkLogin(req, res) {
   const token = req.cookies.token;
 
-  // console.log('token from checkLogin API: ', token);
-
   const session = await selectSessionByTokenAndUsername(token);
-  // console.log('SESSION:', session);
 
   //because db query return an array we can do=>
   // console.log(res.json(session.length));
