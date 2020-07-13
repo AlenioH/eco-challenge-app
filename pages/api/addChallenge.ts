@@ -12,7 +12,7 @@ export default async function addChallenge(req, res) {
   const token = req.cookies.token;
   const challengeId = req.body.challengeId;
   const timeTillEmail =
-    req.body.tillEmail > 0 ? req.body.startDate + 25200000 : req.body.startDate; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
+    req.body.tillEmail > 0 ? req.body.tillEmail + 25200000 : req.body.tillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
   console.log('timme till email', timeTillEmail);
   console.log('till emaillll3333', req.body.tillEmail);
   // console.log('token from addChallenge API: ', token);
