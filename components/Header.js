@@ -318,6 +318,7 @@ export default function Header() {
             flex-direction: row;
             align-items: center;
             width: 100%;
+            margin-bottom: 0;
           }
 
           .logoAndButtonsMob img {
@@ -344,6 +345,7 @@ export default function Header() {
             padding-top: 30px;
             border-bottom: 2px solid black;
           }
+
           .mobile ul li {
             padding-top: 40px;
           }
@@ -364,6 +366,7 @@ export default function Header() {
           }
         }
         .mobileList {
+          margin-top: -80px;
           display: flex;
           flex-direction: column;
         }
