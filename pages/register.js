@@ -52,7 +52,7 @@ export default function Register(props) {
       .catch(() => setStatus('sign up no'));
   }
   return (
-    <div>
+    <div className="container">
       <Head>
         <title>So green sign up</title>
         <link rel="icon" href="/logo.png" />
@@ -86,6 +86,9 @@ export default function Register(props) {
         </form>
       </div>
       <style jsx>{`
+        .container {
+          width: 100vh;
+        }
         .formContainer {
           margin-top: 150px;
           display: flex;

@@ -7,8 +7,6 @@ export default function AddChallengeButton(props) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [value, onChange] = useState(new Date());
 
-  console.log('valluuueeee calendar', value);
-
   //7 200 000 ms in 2 hours
 
   // const [status, setStatus] = useState('');

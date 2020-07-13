@@ -30,7 +30,7 @@ export default function Challenges(props) {
   // }
 
   return (
-    <div>
+    <div className="containerPage">
       <Head>
         <title>So green Challenges</title>
         <link rel="icon" href="/logo.png" />
@@ -126,6 +126,10 @@ export default function Challenges(props) {
       </div>
       <Footer />
       <style jsx>{`
+        .containerPage {
+          width: 100vh;
+        }
+
         .container {
           width: 90%;
           margin-left: auto;

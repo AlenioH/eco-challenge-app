@@ -44,7 +44,7 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div className="container">
       <Head>
         <title>So green login</title>
         <link rel="icon" href="/logo.png" />
@@ -71,11 +71,14 @@ export default function Login() {
         </form>
       </div>
       <style jsx>{`
+        .container {
+          width: 100vh;
+        }
         .formContainer {
           margin-top: 8rem;
           display: flex;
           flex-direction: column;
-          width: 50%;
+          width: 50vh;
           margin-left: auto;
           margin-right: auto;
           align-items: center;

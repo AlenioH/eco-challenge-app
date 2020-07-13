@@ -7,7 +7,7 @@ export default function Articles(props) {
   // console.log(props.data); //array of objects = atricles
 
   return (
-    <div>
+    <div className="containerPage">
       <Head>
         <title>So green Articles</title>
         <link rel="icon" href="/logo.png" />
@@ -31,6 +31,9 @@ export default function Articles(props) {
         })}
       </div>
       <style jsx>{`
+        .containerPage {
+          width: 100vh;
+        }
         .container {
           width: 90%;
           display: flex;

@@ -18,7 +18,6 @@ export default function Home(props) {
         <title>So green Home</title>
         <link rel="icon" href="/logo.png" />
       </Head>
-
       <Header />
       <main>
         <div className="topDiv">
@@ -66,9 +65,15 @@ export default function Home(props) {
       </main>
       <Footer />
       <style jsx>{`
+        .container {
+          width: 100vh;
+        }
+
+        main {
+          width: 100%;
+        }
         .welcomeH1 {
           margin-top: 120px;
-
           margin-left: 50px;
         }
         .welcome {
@@ -80,6 +85,7 @@ export default function Home(props) {
           margin-bottom: 80px;
         }
         .topDiv {
+          width: 100%;
           display: flex;
           flex-direction: row;
         }
