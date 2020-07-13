@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -17,6 +17,8 @@ import { FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 export default function ProfilePage(props) {
   // console.log('props from the profile page', props);
   const [checked, setChecked] = useState(false);
+  const [showButtons, setShowButtons] = useState(true);
+  console.log('user from page', props.user.id);
 
   // function handleClick(e) {
   //   setChecked(!checked);
@@ -37,6 +39,38 @@ export default function ProfilePage(props) {
   //     </FacebookShareCount>
   //   </div>
   // </div>
+
+  fetch('/api/checkSameUser', {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    // mode: 'cors', // no-cors, *cors, same-origin
+    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    // credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    // redirect: 'follow', // manual, *follow, error
+    // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify({ userId: props.user.id }),
+  })
+    .then((response) => {
+      console.log('success', response);
+      if (response.ok !== true) {
+        throw new Error('Error fetching session');
+      }
+      // console.log(response.json);
+      return response.json();
+    })
+    .then((json) => {
+      if (json.sameUser === true) {
+        setShowButtons(true);
+      } else {
+        setShowButtons(false);
+      }
+    })
+    .catch((err) => {
+      console.error('error fetching session', err);
+    });
 
   return (
     <div>
@@ -89,29 +123,37 @@ export default function ProfilePage(props) {
                         ) : (
                           ''
                         )} */}
-                        <ChallengeCompletedButton
-                          challengeId={challenge.id}
-                          userId={props.user.id}
-                        />
-                        <FacebookShareButton
-                          url="https://so-green-eco-challenge.herokuapp.com/challenges"
-                          quote={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
-                        >
-                          <FacebookIcon size={32} round={true} />
-                        </FacebookShareButton>
-                        <TwitterShareButton
-                          url="https://so-green-eco-challenge.herokuapp.com/challenges"
-                          title={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
-                        >
-                          <TwitterIcon size={32} round={true} />
-                        </TwitterShareButton>
-                        <WhatsappShareButton
-                          url="https://so-green-eco-challenge.herokuapp.com/challenges"
-                          title={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
-                          separator=":: "
-                        >
-                          <WhatsappIcon size={32} round />
-                        </WhatsappShareButton>
+                        {showButtons === true ? (
+                          <>
+                            {' '}
+                            <ChallengeCompletedButton
+                              challengeId={challenge.id}
+                              userId={props.user.id}
+                            />
+                            <FacebookShareButton
+                              url="https://so-green-eco-challenge.herokuapp.com/challenges"
+                              quote={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
+                            >
+                              <FacebookIcon size={32} round={true} />
+                            </FacebookShareButton>
+                            <TwitterShareButton
+                              url="https://so-green-eco-challenge.herokuapp.com/challenges"
+                              title={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
+                            >
+                              <TwitterIcon size={32} round={true} />
+                            </TwitterShareButton>
+                            <WhatsappShareButton
+                              url="https://so-green-eco-challenge.herokuapp.com/challenges"
+                              title={`Look what I'm up to! I accepted an eco challenge: ${challenge.name} : ${challenge.description}`}
+                              separator=":: "
+                            >
+                              <WhatsappIcon size={32} round />
+                            </WhatsappShareButton>{' '}
+                          </>
+                        ) : (
+                          ''
+                        )}
+
                         {/* <div>
                           <FacebookShareCount url="http://localhost:3000/profile/39">
                             {(count) => count}
@@ -144,10 +186,14 @@ export default function ProfilePage(props) {
                             )
                             .map((item) => item.finish_date.slice(0, 10))}
                         </p>
-                        <DeleteChallengeButton
-                          challengeId={challenge.id}
-                          userId={props.user.id}
-                        />
+                        {showButtons === true ? (
+                          <DeleteChallengeButton
+                            challengeId={challenge.id}
+                            userId={props.user.id}
+                          />
+                        ) : (
+                          ''
+                        )}
                       </li>
                     );
                   })

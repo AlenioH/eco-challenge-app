@@ -53,7 +53,7 @@ export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    fetch('/api/checkLogin', {
+    fetch('/api/checkSameUser', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, *cors, same-origin
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -71,7 +71,7 @@ export default function Header() {
         if (response.ok !== true) {
           throw new Error('Error fetching session');
         }
-        console.log(response.json);
+        // console.log(response.json);
         return response.json();
       })
       .then((json) => {
