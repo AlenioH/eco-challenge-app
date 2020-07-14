@@ -69,6 +69,7 @@ export default function ProfilePage(props) {
       }
     })
     .catch((err) => {
+      setShowButtons(false);
       console.error('error fetching session', err);
     });
 

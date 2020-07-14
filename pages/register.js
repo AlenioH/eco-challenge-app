@@ -87,13 +87,13 @@ export default function Register(props) {
       </div>
       <style jsx>{`
         .container {
-          width: 100vh;
+          width: 100%;
         }
         .formContainer {
-          margin-top: 150px;
+          margin-top: 8rem;
           display: flex;
           flex-direction: column;
-          width: 50%;
+          width: 100vh;
           margin-left: auto;
           margin-right: auto;
           align-items: center;
@@ -124,6 +124,11 @@ export default function Register(props) {
         button:hover {
           background-color: #2f3640;
           transition: background-color 0.3s;
+        }
+        @media (max-width: 850px) {
+          .formContainer {
+            margin-top: 10rem;
+          }
         }
       `}</style>
       <style jsx global>{`

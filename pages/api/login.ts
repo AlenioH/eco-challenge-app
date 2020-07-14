@@ -37,7 +37,7 @@ export default async function login(req, res) {
       path: '/',
       sameSite: 'lax',
     });
-
+    console.log('cookieeeee', cookie);
     res.setHeader('Set-Cookie', cookie); //i guess this is the way i see it in the console afterwards
 
     //API resolved without sending a response for /api/login, this may result in stalled requests. => means it needs to send you some response back

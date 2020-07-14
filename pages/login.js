@@ -72,13 +72,13 @@ export default function Login() {
       </div>
       <style jsx>{`
         .container {
-          width: 100vh;
+          width: 100%;
         }
         .formContainer {
           margin-top: 8rem;
           display: flex;
           flex-direction: column;
-          width: 50vh;
+          width: 100vh;
           margin-left: auto;
           margin-right: auto;
           align-items: center;
@@ -110,6 +110,12 @@ export default function Login() {
           background-color: #2f3640;
           transition: background-color 0.3s;
         }
+
+        @media (max-width: 850px) {
+          .formContainer {
+            margin-top: 10rem;
+          }
+        }
       `}</style>
       <style jsx global>{`
         html,
@@ -128,54 +134,3 @@ export default function Login() {
     </div>
   );
 }
-
-// export async function getServerSideProps() {
-//   //--------------moved all of it to API routes!!1-----------------------
-
-//   // const crypto = await import('crypto');
-//   // const { selectUserByUsernameAndPassword } = await import('../db');
-//   // let buffer = '';
-
-//   // context.req.on('data', (chunk) => {
-//   //   buffer += chunk;
-//   // });
-//   // context.req.on('end', () => {
-//   //   const body = queryString.parse(Buffer.from(buffer).toString());
-//   //   // const user = {
-//   //   //   username: body.username,
-//   //   //   password: body.password,
-//   //   //   email: body.email,
-//   //   // };
-//   //   selectUserByUsernameAndPassword(body.username, body.password)
-//   //     .then((user) => {
-//   //       console.log('query ran');
-//   //       if (user.length === 0) {
-//   //         console.log('denied login');
-//   //       } else {
-//   //         console.log('logged in');
-//   //         const sessionId = crypto.randomBytes(24).toString('base64');
-//   //         const maxAge = 60 * 60 * 8; //session expires after 8 hours
-//   //         //it sets cookie called 'token' which i will not be able to access from JS.....
-//   //         const cookie = serialize('token', sessionId, {
-//   //           maxAge,
-//   //           expires: new Date(Date.now() + maxAge * 1000),
-//   //           //important for security
-//   //           //deny cookie access from JS
-//   //           httpOnly: true,
-//   //           //also important
-//   //           //set secure cookies on production
-//   //           secure: process.env.NODE_ENV === 'production',
-//   //           path: '/',
-//   //           sameSite: 'lax',
-//   //         });
-//   //         context.res.setHeader('Set-Cookie', cookie);
-//   //       }
-//   //     })
-//   //     .catch((err) => console.log('nope', err));
-//   // });
-//   return {
-//     props: {
-//       csrfToken: 'TODO: Add real token here',
-//     },
-//   };
-// }

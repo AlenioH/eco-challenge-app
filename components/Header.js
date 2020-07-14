@@ -53,7 +53,7 @@ export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    fetch('/api/checkSameUser', {
+    fetch('/api/checkLogin', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, *cors, same-origin
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -256,6 +256,11 @@ export default function Header() {
           padding: 0 20px;
         }
 
+        li a:hover {
+          border-bottom: 4px dotted #2f3640;
+          transition: border 0.2s;
+        }
+
         button {
           background-color: white;
           font-family: inherit;
@@ -279,7 +284,7 @@ export default function Header() {
         .login a {
           text-decoration: none;
           color: white;
-          font-size: 12px;
+          font-size: 20px;
           padding: 3px;
           border: 1px solid white;
           border-radius: 5px;

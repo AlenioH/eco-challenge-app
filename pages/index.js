@@ -66,12 +66,9 @@ export default function Home(props) {
       <Footer />
       <style jsx>{`
         .container {
-          width: 100vh;
-        }
-
-        main {
           width: 100%;
         }
+
         .welcomeH1 {
           margin-top: 120px;
           margin-left: 50px;

@@ -9,6 +9,7 @@ export default async function checkLogin(req, res) {
   const session = await selectSessionByTokenAndUsername(token);
   console.log('session user id', session[0].user_id);
   const sessionUserId = Number(session[0].user_id);
+  console.log('sessionnnn', session);
 
   //because db query return an array we can do=>
   // console.log(res.json(session.length));
