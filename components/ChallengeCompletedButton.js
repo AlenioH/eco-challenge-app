@@ -27,7 +27,7 @@ export default function ChallengeCompletedButton(props) {
         return response.json();
       })
       .then((json) => {
-        if (json.sameUser === true) {
+        if (json.completeChallenge === true) {
           console.log('challenge complete successfully!');
           alert('congratulations! you rock!');
 
