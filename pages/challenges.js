@@ -4,15 +4,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AddChallengeButton from '../components/AddChallengeButton';
 // import Calendar from 'react-calendar';
-import Alert from '@material-ui/core/Button';
+// import Alert from '@material-ui/core/Button';
 
 // import Link from 'next/link';
 // import OneChallenge from './[id]';
 
 export default function Challenges(props) {
   const [category, setCategory] = useState('all');
-  // const [value, onChange] = useState(new Date());
-  // const [showCalendar, setShowCalendar] = useState(false);
+
   //new Date() = current date and time 2020-07-08T09:06:50.057Z
   // console.log('value calendar', value); //ok this value thing changes on click and shows the date you choose
 
@@ -100,25 +99,6 @@ export default function Challenges(props) {
                       <p>{challenge.description}</p>
 
                       <AddChallengeButton challengeId={challenge.id} />
-                      {/* <button onClick={() => setShowCalendar(true)}>
-                        Pick a start date
-                      </button>
-                      <div
-                        style={
-                          !showCalendar
-                            ? { display: 'none' }
-                            : { display: 'block' }
-                        }
-                      >
-                        <Calendar
-                          className="calendarStyle"
-                          onChange={onChange}
-                          value={value}
-                        />
-                        <button onClick={() => setShowCalendar(false)}>
-                          Close calendar
-                        </button>
-                      </div> */}
                     </li>
                   );
                 })}

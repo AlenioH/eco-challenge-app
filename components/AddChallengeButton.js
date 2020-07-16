@@ -12,6 +12,7 @@ export default function AddChallengeButton(props) {
   // const [status, setStatus] = useState('');
   // console.log('props from button', props.challengeId);
   //props.time === is the difference in seconds between the date now and the picked date by the user
+
   function onClick() {
     fetch('/api/addChallenge', {
       method: 'POST',
@@ -20,7 +21,7 @@ export default function AddChallengeButton(props) {
       },
       body: JSON.stringify({
         challengeId: props.challengeId,
-        startDate: value + 720000,
+        startDate: value,
         tillEmail: value - new Date(),
       }),
     })
@@ -53,30 +54,6 @@ export default function AddChallengeButton(props) {
 
   return (
     <div className="buttonContainer">
-      {/* {status === 'need login' ? (
-        <Alert severity="warning">
-          <AlertTitle>Warning</AlertTitle>
-          <strong>You need to login </strong> to add challenges!
-        </Alert>
-      ) : (
-        ''
-      )}
-      {status === 'already committed' ? (
-        <Alert severity="info">
-          <AlertTitle>Info</AlertTitle>
-          This is an info alert — <strong>check it out!</strong>
-        </Alert>
-      ) : (
-        ''
-      )}
-      {status === 'success' ? (
-        <Alert severity="success">
-          <AlertTitle>Success</AlertTitle>
-          This is a success alert — <strong>check it out!</strong>
-        </Alert>
-      ) : (
-        ''
-      )} */}
       <button className="showHideCal" onClick={(e) => setShowCalendar(true)}>
         Pick a start date
       </button>

@@ -11,9 +11,10 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export default async function addChallenge(req, res) {
   const token = req.cookies.token;
   const challengeId = req.body.challengeId;
-  const timeTillEmail =
-    req.body.tillEmail > 0 ? req.body.tillEmail + 25200000 : req.body.tillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
-  console.log('timme till email', timeTillEmail);
+  // const timeTillEmail =
+  //   req.body.tillEmail > 0 ? req.body.tillEmail + 25200000 : req.body.tillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
+  const timeTillEmail = req.body.tillEmail;
+
   console.log('till emaillll3333', req.body.tillEmail);
   // console.log('token from addChallenge API: ', token);
   // console.log('challengeID from addCh API:', challengeId);
@@ -52,34 +53,39 @@ export default async function addChallenge(req, res) {
         session[0].user_id,
         req.body.startDate,
       );
-      setTimeout(() => {
-        sgMail.send(msg);
-      }, timeTillEmail);
-      // console.log('time from functiom', timeTillEmail); //this presumably still works if the value is negative, gets run immediately
-      // if (timeTillEmail > 0) {
-      //   setTimeout(() => {
-      //     sgMail.send(msg);
-      //   }, timeTillEmail); //2 minutes so if the time till email is not today, i should het the email in 1 min
-      //   // timeTillEmail + 25200000); //at 7 am on the chosen day
-      // } else {
+      // setTimeout(() => {
       //   sgMail.send(msg);
-      // }
-      // sgMail.send(msg);
-      console.log('challenge addedd successfully');
+      // }, timeTillEmail);
+      if (timeTillEmail < 0) {
+        sgMail.send(msg);
+      } else {
+        fetch('./sendEmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            startDate: req.body.startDate,
+            userEmail: user.email,
+            challengeName: challenge[0].name,
+            challengeDescription: challenge[0].description,
+          }),
+        })
+          .then((response) =>
+            console.log('response from delayed email', response),
+          )
+          .catch((err) => console.error('error from delayed email', err));
+      }
 
-      // .catch((err) => console.error('addid challenge went wrong', err));
+      console.log('challenge addedd successfully');
     } else {
       console.log('challenge already exists');
     }
   }
 
-  res.json(
-    {
-      addChallenge: true,
-      id: session[0].user_id,
-      challengeExists: userChallenges.length > 0,
-    },
-    // username: cookiesPar.username,
-    // id: cookiesPar.id,
-  );
+  res.json({
+    addChallenge: true,
+    id: session[0].user_id,
+    challengeExists: userChallenges.length > 0,
+  });
 }

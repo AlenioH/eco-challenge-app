@@ -194,7 +194,15 @@ export async function getCompletedChallengesByUserId(userId) {
 }
 
 export async function removeChallengeByUserAndChallengeId(challengeId, userId) {
-  return sql`
+  await sql`
   DELETE FROM completed_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}
   `;
+}
+
+export async function selectUsersByStartDate() {
+  const usersForLater = await sql`
+  SELECT * FROM user_challenges WHERE start_date < NOW()
+  `;
+  console.log('usersfromquery', usersForLater);
+  return usersForLater;
 }
