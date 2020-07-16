@@ -87,6 +87,12 @@ export async function checkEmail(email) {
   return usersWithEmail.length;
 }
 
+export async function removeExpiredSessions() {
+  await sql`
+  DELETE FROM sessions WHERE expiry_timestamp < NOW();
+  `;
+}
+
 export async function insertSession(userId, userName, token) {
   return sql`
   INSERT INTO sessions(user_id, user_name, token) VALUES (${userId}, ${userName}, ${token})

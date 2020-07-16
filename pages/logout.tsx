@@ -5,18 +5,24 @@ import { GetServerSidePropsContext } from 'next';
 
 export default function Logout() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Head>
         <title>Logged out</title>
       </Head>
-      <h3>
-        You are successfully logged out! Hope to see you soon again {'\u2728'}{' '}
-        <span role="img" aria-label="unicorn">
-          🦄
-        </span>
-      </h3>
+      <div className="paragraphContainer">
+        <h3>
+          You are successfully logged out! Hope to see you soon again {'\u2728'}{' '}
+          <span role="img" aria-label="unicorn">
+            🦄
+          </span>
+        </h3>
+      </div>
       <style jsx>{`
+        .container {
+          width: 100%;
+        }
+
         h3 {
           margin-top: 8rem;
         }

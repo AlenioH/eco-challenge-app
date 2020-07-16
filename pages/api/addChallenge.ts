@@ -52,7 +52,6 @@ export default async function addChallenge(req, res) {
         session[0].user_id,
         req.body.startDate,
       );
-
       setTimeout(() => {
         sgMail.send(msg);
       }, timeTillEmail);

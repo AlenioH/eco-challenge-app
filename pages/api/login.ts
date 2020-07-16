@@ -1,10 +1,16 @@
 import crypto from 'crypto';
 import { serialize } from 'cookie';
-import { selectUserByUsernameAndPassword, insertSession } from '../../db';
+import {
+  selectUserByUsernameAndPassword,
+  insertSession,
+  removeExpiredSessions,
+} from '../../db';
 
 export default async function login(req, res) {
   const username = req.body.username;
   const password = req.body.password;
+
+  await removeExpiredSessions();
 
   const users = await selectUserByUsernameAndPassword(username, password);
   console.log('query ran');
