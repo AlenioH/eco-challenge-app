@@ -151,6 +151,13 @@ export async function getUserById(userId) {
   // console.log('one user from db query:', user[0]);
   return user[0];
 }
+//1 user
+
+export async function getUsersByIds(userId) {
+  const users = await sql`
+  SELECT * FROM users WHERE id IN (${userId})`;
+  return users;
+}
 
 export async function getChallengeById(challengeId) {
   const userChallenges = await sql`
@@ -213,7 +220,7 @@ export async function selectUsersByStartDate() {
   console.log('usersfromquery', usersForLater);
   return usersForLater;
 }
-// SELECT * FROM challenges WHERE id IN (${challengeIds})
+
 export async function toggleEmail(userIds, challengeIds) {
   await sql`
   UPDATE user_challenges

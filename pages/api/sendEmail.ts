@@ -6,7 +6,7 @@
 //   getChallengeById,
 // } from '../../db';
 
-import { selectUsersByStartDate, getUserById, toggleEmail } from '../../db';
+import { selectUsersByStartDate, getUsersByIds, toggleEmail } from '../../db';
 import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -29,14 +29,14 @@ export default async function sendEmail(req, res) {
   console.log('userIds for send email', userIds);
   const chalIds = users.map((item) => item.challenge_id);
   console.log('chalIds for send email', chalIds);
-  const usersById = users.length > 0 ? await getUserById(userIds) : [];
+  const usersById = users.length > 0 ? await getUsersByIds(userIds) : [];
   //must be an array of objects
   console.log('usersbyId', usersById);
-  // const userEmails = usersById ? usersById.map((item) => item.email) : [];
-  // console.log('emailzzz', userEmails);
+  const userEmails = usersById ? usersById.map((item) => item.email) : [];
+  console.log('emailzzz', userEmails);
 
   const msg = {
-    to: usersById.email,
+    to: userEmails,
     from: 'challenge@alenio.works',
     subject: 'Challenge reminder',
     text: `Hey there! you signed up for a challende ${req.body.challengeName} : ${req.body.challengeDescription}. The time to act is now!`,
@@ -50,9 +50,3 @@ export default async function sendEmail(req, res) {
     emailSend: true,
   });
 }
-
-//select from user_challenges where the startdate is < NOW();
-//add a field email sent NEW DB QUERY selectUsersByStartDate
-//so select all where its lesser than now AND email_sent field is FALSE
-//so send the email and change the field email_sent to true
-//but do I rrally need the function?? if i just pass in the user email? na prolly i shouldnt pass it like this.... but then how?
