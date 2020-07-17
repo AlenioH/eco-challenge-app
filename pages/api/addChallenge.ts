@@ -7,6 +7,7 @@ import {
 } from '../../db';
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import moment from 'moment';
 
 export default async function addChallenge(req, res) {
   const token = req.cookies.token;
@@ -14,8 +15,10 @@ export default async function addChallenge(req, res) {
   // const timeTillEmail =
   //   req.body.tillEmail > 0 ? req.body.tillEmail + 25200000 : req.body.tillEmail; //logic is: if time before email is more than 0, then its a day in the future, adding to it will potentially make the email come at 7 am, otherwise take the time till email from body (less than zero)
   const timeTillEmail = req.body.tillEmail;
+  const newDateObj = moment(req.body.startDate).add(120, 'm').toDate();
+  const startDate = req.body.tillEmail > 0 ? newDateObj : req.body.startDate;
 
-  console.log('till emaillll3333', req.body.tillEmail);
+  console.log('start dateeeee', startDate);
   // console.log('token from addChallenge API: ', token);
   // console.log('challengeID from addCh API:', challengeId);
 
@@ -32,7 +35,7 @@ export default async function addChallenge(req, res) {
   );
 
   //60 000 ms in 1 min
-  // 60000 * 60 * 13
+  // 60000 * 60 * 2
 
   const msg = {
     to: user.email,
@@ -48,18 +51,29 @@ export default async function addChallenge(req, res) {
   //if length of userChallenges is > 0 means the user already added this challenge
   if (session.length !== 0) {
     if (userChallenges.length === 0) {
-      await insertUserChallenge(
-        challengeId,
-        session[0].user_id,
-        req.body.startDate,
-      );
-      // setTimeout(() => {
-      //   sgMail.send(msg);
-      // }, timeTillEmail);
       if (timeTillEmail < 0) {
+        await insertUserChallenge(
+          challengeId,
+          session[0].user_id,
+          startDate,
+          false,
+        );
         sgMail.send(msg);
       } else {
+        await insertUserChallenge(
+          challengeId,
+          session[0].user_id,
+          startDate,
+          false,
+        );
+        //will need to comment it out later ------------------------.----------------------------------------------------------------------------------------------------------------------------------
         console.log('email will be sent later');
+        // fetch('http://localhost:3000/api/sendEmail', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        // }).then((response) => console.log('response delayed email', response));
       }
 
       console.log('challenge addedd successfully');

@@ -119,9 +119,14 @@ export async function getChallenges() {
   return challenges;
 }
 
-export async function insertUserChallenge(challengeId, userId, startDate) {
+export async function insertUserChallenge(
+  challengeId,
+  userId,
+  startDate,
+  emailSent,
+) {
   return sql`
-  INSERT INTO user_challenges(challenge_id, user_id, start_date) VALUES (${challengeId}, ${userId}, ${startDate})
+  INSERT INTO user_challenges(challenge_id, user_id, start_date, email_sent) VALUES (${challengeId}, ${userId}, ${startDate}, ${emailSent})
   `;
 }
 
@@ -141,7 +146,8 @@ export async function getChallengeByUserId(userId) {
 
 export async function getUserById(userId) {
   const user = await sql`
-  SELECT * FROM users WHERE id = ${userId}`;
+  SELECT * FROM users WHERE id IN (${userId})`;
+  // SELECT * FROM challenges WHERE id IN (${challengeIds})
   // console.log('one user from db query:', user[0]);
   return user[0];
 }
@@ -200,16 +206,19 @@ export async function removeChallengeByUserAndChallengeId(challengeId, userId) {
 }
 
 export async function selectUsersByStartDate() {
-  // function toTimestamp(strDate) {
-  //   var datum = Date.parse(strDate);
-  //   return datum / 1000;
-  // }
-  // const timeStamp = toTimestamp(start_date);
-  // console.log('timestaaaaamp', timeStamp);
-
   const usersForLater = await sql`
-  SELECT * FROM user_challenges WHERE start_date < NOW()
+  SELECT * FROM user_challenges WHERE start_date < NOW() 
+  AND email_sent = false
   `;
   console.log('usersfromquery', usersForLater);
   return usersForLater;
+}
+// SELECT * FROM challenges WHERE id IN (${challengeIds})
+export async function toggleEmail(userIds, challengeIds) {
+  await sql`
+  UPDATE user_challenges
+  SET email_sent = true
+  WHERE user_id IN (${userIds}) AND challenge_id IN (${challengeIds})
+  
+  `;
 }

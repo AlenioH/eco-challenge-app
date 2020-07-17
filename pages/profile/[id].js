@@ -284,11 +284,7 @@ export async function getServerSideProps(context) {
       start_date: item.start_date.toISOString().split('T')[0],
     };
   });
-  // const userChallenges = JSON.parse(
-  //   JSON.stringify(await getChallengeByUserId(user.id)),
-  // );
-  console.log('banane', userChallenges);
-  // console.log('userChallenges from profile page', userChallenges);
+
   //returns an array of objects: [
   //   { challenge_id: 2, user_id: 18 },
   //   count: 3,
