@@ -59,22 +59,7 @@ export default async function addChallenge(req, res) {
       if (timeTillEmail < 0) {
         sgMail.send(msg);
       } else {
-        fetch('./sendEmail', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            startDate: req.body.startDate,
-            userEmail: user.email,
-            challengeName: challenge[0].name,
-            challengeDescription: challenge[0].description,
-          }),
-        })
-          .then((response) =>
-            console.log('response from delayed email', response),
-          )
-          .catch((err) => console.error('error from delayed email', err));
+        console.log('email will be sent later');
       }
 
       console.log('challenge addedd successfully');

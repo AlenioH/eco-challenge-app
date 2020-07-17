@@ -6,12 +6,20 @@ import Calendar from 'react-calendar';
 export default function AddChallengeButton(props) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [value, onChange] = useState(new Date());
+  console.log('value calendar', value);
 
   //7 200 000 ms in 2 hours
 
   // const [status, setStatus] = useState('');
   // console.log('props from button', props.challengeId);
   //props.time === is the difference in seconds between the date now and the picked date by the user
+
+  function toTimestamp(strDate) {
+    var datum = Date.parse(strDate);
+    return datum / 1000;
+  }
+  const timeStamp = toTimestamp(value);
+  console.log('timestaaaaamp from add', timeStamp);
 
   function onClick() {
     fetch('/api/addChallenge', {

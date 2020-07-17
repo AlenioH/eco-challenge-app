@@ -278,7 +278,16 @@ export async function getServerSideProps(context) {
   } = await import('../../db');
   const user = await getUserById(context.params.id);
 
-  const userChallenges = await getChallengeByUserId(user.id);
+  const userChallenges = (await getChallengeByUserId(user.id)).map((item) => {
+    return {
+      ...item,
+      start_date: item.start_date.toISOString().split('T')[0],
+    };
+  });
+  // const userChallenges = JSON.parse(
+  //   JSON.stringify(await getChallengeByUserId(user.id)),
+  // );
+  console.log('banane', userChallenges);
   // console.log('userChallenges from profile page', userChallenges);
   //returns an array of objects: [
   //   { challenge_id: 2, user_id: 18 },

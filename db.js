@@ -200,6 +200,13 @@ export async function removeChallengeByUserAndChallengeId(challengeId, userId) {
 }
 
 export async function selectUsersByStartDate() {
+  // function toTimestamp(strDate) {
+  //   var datum = Date.parse(strDate);
+  //   return datum / 1000;
+  // }
+  // const timeStamp = toTimestamp(start_date);
+  // console.log('timestaaaaamp', timeStamp);
+
   const usersForLater = await sql`
   SELECT * FROM user_challenges WHERE start_date < NOW()
   `;
