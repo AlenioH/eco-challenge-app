@@ -66,14 +66,7 @@ export default async function addChallenge(req, res) {
           startDate,
           false,
         );
-        //will need to comment it out later ------------------------.----------------------------------------------------------------------------------------------------------------------------------
         console.log('email will be sent later');
-        // fetch('http://localhost:3000/api/sendEmail', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        // }).then((response) => console.log('response delayed email', response));
       }
 
       console.log('challenge addedd successfully');

@@ -11,6 +11,7 @@ import {
   getUsersByIds,
   toggleEmail,
   getChallengesByIds,
+  getChallengeById,
 } from '../../db';
 import sgMail from '@sendgrid/mail';
 
@@ -40,30 +41,23 @@ export default async function sendEmail(req, res) {
     chalIds.length > 0 ? await getChallengesByIds(chalIds) : [];
   console.log('challengezzz', challenges);
 
-  const userChal = challenges.filter((item) => item.id === users.challenge_id);
-  console.log('userchalll', userChal);
-  // challengezzz [
-  //   {
-  //     id: 1,
-  //     name: 'Reusable water bottle for one week',
-  //     img: '/challenge-bottle.jpg',
-  //     category: 'trash',
-  //     description: 'Look at the huge variety of those bottles: there is bamboo, glass, stainless steel...Just pick yours and avoid all that plasti c
-
-  //  trash!',
-  //     days: 7
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Veggie day',
-  //     img: '/veggie-day.jpg',
-  //     category: 'food',
-  //     description: 'Switching to a veggie diet does not only improve your health, but also helps to save the environment. Try going vegetarian or v
-  // egan for a day!',
-  //     days: 1
-  //   },
-  //   count: 2,
-  //   command: 'SELECT'
+  const userChallenges = users.map((item) => {
+    return challenges.filter((challenge) => item.challenge_id === challenge.id);
+  }); //this doesnt quite work...
+  console.log('challleeeennnn', userChallenges);
+  // userChallenges[0].name
+  // challleeeennnn [
+  //   [
+  //     {
+  //       id: 2,
+  //       name: 'Earth hour',
+  //       img: '/earth-hour.jpg',
+  //       category: 'power',
+  //       description: 'We all know the famous flashmob when the entire planet turns off the power for one hour. Good news is you can do it on any ot
+  // her day!',
+  //       days: 1
+  //     }
+  //   ]
   // ]
 
   const usersById = users.length > 0 ? await getUsersByIds(userIds) : [];
@@ -73,14 +67,20 @@ export default async function sendEmail(req, res) {
   const userEmails = usersById ? usersById.map((item) => item.email) : [];
   console.log('emailzzz', userEmails);
 
-  //user chalenge = challenges.filter((item) => item.id === )
-  //mb like get challenge by id, but actually i kinda need all of them
+  //mb I need like a join... select from challenges where challenge_id == challenge.id...but the problem is that the challenge_id from user_challenges is an arrayyyy....
+
+  //${users.map((item) => {
+  //   return userChallenges[0].map(
+  //     (challenge) => challenge.challenge_id === item.id,
+  //   );
+  // })}
 
   const msg = {
     to: userEmails,
     from: 'challenge@alenio.works',
     subject: 'Challenge reminder',
-    text: `Hey there! you signed up for a challende ${userChal.name} ${userChal.description} The time to act is now!`,
+    text: `Hey there! you signed up for a challende 
+    ${userChallenges[0].name} ${userChallenges[0].description} The time to act is now!`,
   };
 
   await toggleEmail(userIds, chalIds);
