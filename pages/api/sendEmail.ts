@@ -1,11 +1,3 @@
-// import {
-//   selectSessionByTokenAndUsername,
-//   insertUserChallenge,
-//   checkChallengeByUserAndChallenge,
-//   getUserById,
-//   getChallengeById,
-// } from '../../db';
-
 import {
   selectUsersByStartDate,
   getUsersByIds,
@@ -35,16 +27,16 @@ export default async function sendEmail(req, res) {
   console.log('userIds for send email', userIds);
 
   const chalIds = users.map((item) => item.challenge_id);
-  console.log('chalIds for send email', chalIds); //[7, 10]
+  // console.log('chalIds for send email', chalIds); //[7, 10]
 
-  const challenges =
-    chalIds.length > 0 ? await getChallengesByIds(chalIds) : [];
-  console.log('challengezzz', challenges);
+  // const challenges =
+  //   chalIds.length > 0 ? await getChallengesByIds(chalIds) : [];
+  // console.log('challengezzz', challenges);
 
-  const userChallenges = users.map((item) => {
-    return challenges.filter((challenge) => item.challenge_id === challenge.id);
-  }); //this doesnt quite work...
-  console.log('challleeeennnn', userChallenges);
+  // const userChallenges = users.map((item) => {
+  //   return challenges.filter((challenge) => item.challenge_id === challenge.id);
+  // }); //this doesnt quite work...
+  // console.log('challleeeennnn', userChallenges);
   // userChallenges[0].name
   // challleeeennnn [
   //   [
@@ -67,20 +59,14 @@ export default async function sendEmail(req, res) {
   const userEmails = usersById ? usersById.map((item) => item.email) : [];
   console.log('emailzzz', userEmails);
 
-  //mb I need like a join... select from challenges where challenge_id == challenge.id...but the problem is that the challenge_id from user_challenges is an arrayyyy....
-
-  //${users.map((item) => {
-  //   return userChallenges[0].map(
-  //     (challenge) => challenge.challenge_id === item.id,
-  //   );
-  // })}
-
   const msg = {
     to: userEmails,
     from: 'challenge@alenio.works',
-    subject: 'Challenge reminder',
-    text: `Hey there! you signed up for a challende 
-    ${userChallenges[0].name} ${userChallenges[0].description} The time to act is now!`,
+    subject: 'The time to act is now - eco challenge reminder',
+    text: `Hey there! You signed up for an eco challenge, and it starts today!
+    Login under your username and refresh your memory what the challenge is about. May the force be with you! Best, Alenio.`,
+    html: `<p>Hey there! <br> You signed up for an eco challenge, and it starts today!
+    <a href='https://so-green-eco-challenge.herokuapp.com/login'> Login </a> under your username and refresh your memory what the challenge is about. <br> May the force be with you! <br> Best, Alenio.</p>`,
   };
 
   await toggleEmail(userIds, chalIds);

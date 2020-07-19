@@ -40,8 +40,9 @@ export default async function addChallenge(req, res) {
   const msg = {
     to: user.email,
     from: 'challenge@alenio.works',
-    subject: 'Challenge reminder',
-    text: `Hey there! you signed up for a challende ${challenge[0].name} : ${challenge[0].description}. The time to act is now!`,
+    subject: 'Challenge accepted!',
+    text: `Hey there! You signed up for a challenge ${challenge[0].name} : ${challenge[0].description}. May the force be with you! Best, ALenio.`,
+    html: `<p>Hey there! <br> You signed up for a challenge ${challenge[0].name} : ${challenge[0].description} <br> May the force be with you! <br> Best, Alenio.</p>`,
   };
 
   //because db query return an array we can do=>
