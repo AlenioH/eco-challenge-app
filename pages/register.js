@@ -127,7 +127,7 @@ export default function Register(props) {
         }
         @media (max-width: 850px) {
           .formContainer {
-            margin-top: 10rem;
+            margin-top: 14rem;
             height: 100vh;
             font-size: 50px;
           }

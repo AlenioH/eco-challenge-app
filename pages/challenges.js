@@ -157,6 +157,7 @@ export default function Challenges(props) {
           }
           .container {
             width: 100vh;
+            margin-top: 19rem;
           }
           ul {
             display: flex;

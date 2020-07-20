@@ -208,6 +208,7 @@ export default function Home(props) {
           }
           .container {
             width: 100vh;
+            margin-top: 7rem;
           }
           .desktop {
             display: none;

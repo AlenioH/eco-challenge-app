@@ -86,7 +86,7 @@ export default function Articles(props) {
             flex-direction: column;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 7rem;
+            margin-top: 14rem;
           }
 
           .articleContainer {

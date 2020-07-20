@@ -260,6 +260,7 @@ export default function ProfilePage(props) {
           }
           .container {
             width: 100vh;
+            margin-top: 20rem;
           }
           .challenges {
             display: flex;
