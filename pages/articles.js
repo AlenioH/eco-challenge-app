@@ -74,6 +74,24 @@ export default function Articles(props) {
         .source {
           font-size: 0.8rem;
         }
+        @media (max-width: 850px) {
+          .containerPage {
+            width: 100vh;
+          }
+          .container {
+            width: 90vh;
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 7rem;
+          }
+
+          .articleContainer {
+            display: flex;
+            flex-direction: column;
+          }
+        }
       `}</style>
       <style jsx global>{`
         html,

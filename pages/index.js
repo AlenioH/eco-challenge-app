@@ -206,6 +206,9 @@ export default function Home(props) {
             font-size: 2rem;
             line-height: 2rem;
           }
+          .container {
+            width: 100vh;
+          }
           .desktop {
             display: none;
           }
