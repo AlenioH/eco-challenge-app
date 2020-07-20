@@ -114,6 +114,18 @@ export default function Login() {
         @media (max-width: 850px) {
           .formContainer {
             margin-top: 10rem;
+            height: 100vh;
+            font-size: 50px;
+          }
+          .formContainer input,
+          .formContainer button,
+          .formContainer p {
+            font-size: 30px;
+          }
+
+          input,
+          button {
+            padding: 30px;
           }
         }
       `}</style>
