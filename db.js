@@ -246,8 +246,8 @@ export async function getUserLevel(userId) {
 
 export async function adjustUserLevel(userId, level) {
   await sql`
-  UPDATE TABLE user_levels
-  SET challenges_completed = challenges_completed++,
+  UPDATE user_levels
+  SET challenges_completed = challenges_completed + 1,
   level = ${level}
   WHERE user_id = ${userId}
 

@@ -83,6 +83,7 @@ export default function ProfilePage(props) {
       <div className="container">
         <h1>Your profile</h1>
         <h2>{props.user.username}</h2>
+        <h3>Level: {props.userLevel}</h3>
 
         <div className="challenges">
           <div className="activeChallenges">
@@ -298,9 +299,11 @@ export async function getServerSideProps(context) {
     getChallengeByUserId,
     getChallengesByIds,
     getCompletedChallengesByUserId,
+    getUserLevel,
   } = await import('../../db');
   const user = await getUserById(context.params.id);
 
+  const userLevel = await getUserLevel(user.id);
   const userChallenges = (await getChallengeByUserId(user.id)).map((item) => {
     return {
       ...item,
@@ -335,6 +338,7 @@ export async function getServerSideProps(context) {
       userChallenges,
       completedToShow,
       completedChallenges,
+      userLevel: userLevel[0].level,
     },
   };
 }
