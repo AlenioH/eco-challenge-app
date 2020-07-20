@@ -318,6 +318,10 @@ export default function Header() {
             align-items: center;
           }
 
+          .mobile .logoAndButtonsMob a img {
+            width: 300px;
+          }
+
           .logoAndButtonsMob {
             display: flex;
             flex-direction: row;
@@ -340,9 +344,9 @@ export default function Header() {
 
           .showMenu {
             margin-left: auto;
-            font-size: 30px;
-            padding: 10px 14px;
+            font-size: 70px;
             border-radius: 8px;
+            padding: 20px 25px;
           }
           .mobile ul,
           .mobile ul a {
