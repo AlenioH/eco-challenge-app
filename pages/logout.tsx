@@ -26,6 +26,14 @@ export default function Logout() {
         h3 {
           margin-top: 8rem;
         }
+
+        @media (max-width: 850px) {
+          .container {
+            width: 100vh;
+            font-size: 50px;
+            margin-top: 20rem;
+          }
+        }
       `}</style>
     </div>
   );
