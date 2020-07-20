@@ -1,5 +1,4 @@
 import Tokens from 'csrf';
-// require('dotenv').config();
 import argon2 from 'argon2';
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -32,21 +31,17 @@ export default async function register(req, res) {
     if (!usersWithSameName) {
       if (!usersWithSameEmail) {
         await insertUser(user)
-          .then(() =>
-            // using Twilio SendGrid's v3 Node.js Library
-            // https://github.com/sendgrid/sendgrid-nodejs
-            {
-              const msg = {
-                to: user.email,
-                from: 'challenge@alenio.works',
-                subject: 'Welcome to so green!',
-                text:
-                  'Hey there! You are receiving this email because you just signed up for So Green eco challenge app. I am excited to have you here and hope you will learn something new. Have fun!',
-              };
-              sgMail.send(msg);
-              console.log('succeeded!');
-            },
-          )
+          .then(() => {
+            const msg = {
+              to: user.email,
+              from: 'challenge@alenio.works',
+              subject: 'Welcome to so green!',
+              text:
+                'Hey there! You are receiving this email because you just signed up for So Green eco challenge app. I am excited to have you here and hope you will learn something new. Have fun!',
+            };
+            sgMail.send(msg);
+            console.log('succeeded!');
+          })
           .catch((err) => console.error('didnt work', err));
       } else {
         console.log('this email already exists');

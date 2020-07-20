@@ -229,3 +229,27 @@ export async function toggleEmail(userIds, challengeIds) {
   
   `;
 }
+
+export async function insertUserIntoLevels(userId, challengesCompleted, level) {
+  await sql`
+  INSERT INTO user_levels VALUES (${userId}, ${challengesCompleted}, ${level})
+  `;
+}
+
+export async function getUserLevel(userId) {
+  const userLevel = await sql`
+  SELECT * FROM user_levels WHERE user_id = ${userId}
+  `;
+  console.log('userlevelll', userLevel);
+  return userLevel;
+}
+
+export async function adjustUserLevel(userId, level) {
+  await sql`
+  UPDATE TABLE user_levels
+  SET challenges_completed = challenges_completed++,
+  level = ${level}
+  WHERE user_id = ${userId}
+
+  `;
+}
