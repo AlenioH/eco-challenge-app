@@ -95,7 +95,7 @@ export default function Footer() {
           }
 
           .mobile img {
-            width: 40px;
+            width: 70px;
             margin: 1rem;
           }
         }
