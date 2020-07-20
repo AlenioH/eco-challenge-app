@@ -74,7 +74,7 @@ export default function ProfilePage(props) {
     });
 
   return (
-    <div>
+    <div classname="containerPage">
       <Head>
         <title>Profile page {props.user.username} </title>
         <link rel="icon" href="/logo.png" />
@@ -249,6 +249,28 @@ export default function ProfilePage(props) {
         button:hover {
           background-color: #2f3640;
           transition: background-color 0.3s;
+        }
+
+        @media (max-width: 850px) {
+          * {
+            font-size: 35px;
+          }
+          .containerPage {
+            width: 100vh;
+          }
+          .container {
+            width: 100vh;
+          }
+          .challenges {
+            display: flex;
+            flex-direction: column;
+          }
+          .activeChallenges,
+          .completedChallenges {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+          }
         }
       `}</style>
       <style jsx global>{`

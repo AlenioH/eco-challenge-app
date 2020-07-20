@@ -53,6 +53,12 @@ export default function DeleteChallengeButton(props) {
             background-color: #2f3640;
             transition: background-color 0.3s;
           }
+          @media (max-width: 850px) {
+            button {
+              font-size: 30px;
+              padding: 20px;
+            }
+          }
         `}</style>
       </button>
     </div>
