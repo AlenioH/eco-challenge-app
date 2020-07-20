@@ -20,53 +20,106 @@ export default function Home(props) {
       </Head>
       <Header />
       <main>
-        <div className="topDiv">
-          <div className="headers">
-            <h1 className="welcomeH1">
-              Welcome to <span className="welcome">So green!</span>
-            </h1>
-            <h2>Your personal guide to a more sustainable lifestyle</h2>
-            <div className="missionSection">
-              <img src="/photo1.jpg" alt="foggy forest"></img>
-              <div className="sectionDescription">
-                <h1>Our mission</h1>
-                <p>
-                  Our task is to encourage as many people as possible to make as
-                  many as possible small steps towards saving our common home.
-                  Become a hero now!
-                </p>
+        <div className="desktop">
+          <div className="topDiv">
+            <div className="headers">
+              <h1 className="welcomeH1">
+                Welcome to <span className="welcome">So green!</span>
+              </h1>
+              <h2>Your personal guide to a more sustainable lifestyle</h2>
+              <div className="missionSection">
+                <img src="/photo1.jpg" alt="foggy forest"></img>
+                <div className="sectionDescription">
+                  <h1>Our mission</h1>
+                  <p>
+                    Our task is to encourage as many people as possible to make
+                    as many as possible small steps towards saving our common
+                    home. Become a hero now!
+                  </p>
+                </div>
               </div>
+            </div>
+
+            <div className="dailyTip">
+              <h3>Daily Tip</h3>
+              <h4>{randomOne.title}</h4>
+              <img className="dailyTipImg" src={randomOne.img} alt=""></img>
+              <p>{randomOne.content}</p>
             </div>
           </div>
 
-          <div className="dailyTip">
-            <h3>Daily Tip</h3>
-            <h4>{randomOne.title}</h4>
-            <img className="dailyTipImg" src={randomOne.img} alt=""></img>
-            <p>{randomOne.content}</p>
+          <div className="howItWorksSection">
+            <div className="sectionDescription">
+              <h1>How does it work?</h1>
+              <p>
+                You only need to choose a challenge out of the list of the
+                existing ones and commit to it!
+              </p>
+              <Link href="/challenges">
+                <a>
+                  <button>Browse challenges</button>
+                </a>
+              </Link>
+            </div>
+            <img src="/photo2.jpg" alt="laptop and a cup of coffee"></img>
           </div>
         </div>
 
-        <div className="howItWorksSection">
-          <div className="sectionDescription">
-            <h1>How does it work?</h1>
-            <p>
-              You only need to choose a challenge out of the list of the
-              existing ones and commit to it!
-            </p>
-            <Link href="/challenges">
-              <a>
-                <button>Browse challenges</button>
-              </a>
-            </Link>
+        <div className="mobile">
+          <div className="topDiv">
+            <div className="headers">
+              <h1 className="welcomeH1">
+                Welcome to <span className="welcome">So green!</span>
+              </h1>
+              <h2>Your personal guide to a more sustainable lifestyle</h2>
+              <div className="missionSection">
+                <img src="/photo1.jpg" alt="foggy forest"></img>
+                <div className="sectionDescription">
+                  <h1>Our mission</h1>
+                  <p>
+                    Our task is to encourage as many people as possible to make
+                    as many as possible small steps towards saving our common
+                    home. Become a hero now!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="dailyTip">
+              <div>
+                <h3>Daily Tip</h3>
+                <h4>{randomOne.title}</h4>
+              </div>
+              <img
+                className="dailyTipImg"
+                src={randomOne.img}
+                alt="random tip"
+              ></img>
+              <p>{randomOne.content}</p>
+            </div>
           </div>
-          <img src="/photo2.jpg" alt="laptop and a cup of coffee"></img>
+
+          <div className="howItWorksSection">
+            <div className="sectionDescription">
+              <h1>How does it work?</h1>
+              <p>
+                You only need to choose a challenge out of the list of the
+                existing ones and commit to it!
+              </p>
+              <Link href="/challenges">
+                <a>
+                  <button>Browse challenges</button>
+                </a>
+              </Link>
+            </div>
+            <img src="/photo2.jpg" alt="laptop and a cup of coffee"></img>
+          </div>
         </div>
       </main>
       <Footer />
       <style jsx>{`
         .container {
-          width: 100%;
+          width: 100vw;
         }
 
         .welcomeH1 {
@@ -95,7 +148,7 @@ export default function Home(props) {
           align-items: center;
           width: 30%;
           margin-left: auto;
-          margin-top: 48px;
+          margin-top: 60px;
           margin-bottom: 80px;
           padding: 16px;
           height: calc(100vh - 50px);
@@ -146,6 +199,77 @@ export default function Home(props) {
         button:hover {
           background-color: #2f3640;
           transition: background-color 0.3s;
+        }
+
+        @media (max-width: 850px) {
+          * {
+            font-size: 2rem;
+            line-height: 2rem;
+          }
+          .desktop {
+            display: none;
+          }
+          .topDiv {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .headers {
+            margin-top: 4rem;
+          }
+
+          .missionSection {
+            margin-bottom: -8rem;
+            display: flex;
+            flex-direction: column;
+            width: 100vh;
+            margin-left: 2rem;
+          }
+
+          .dailyTip {
+            width: 100vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 20px;
+            margin-top: 0;
+            border: none;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .howItWorksSection img,
+          .missionSection img {
+            width: 450px;
+          }
+          .howItWorksSection {
+            display: flex;
+            flex-direction: column;
+            width: 100vh;
+            margin-top: -15rem;
+            margin-left: 2rem;
+          }
+          .howItWorksSection button {
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: inherit;
+            font-size: 3rem;
+            font-weight: 800;
+
+            color: whitesmoke;
+            background-color: #009432;
+          }
+
+          h1 {
+            line-height: 2rem;
+          }
+        }
+
+        @media (min-width: 850px) {
+          .mobile {
+            display: none;
+          }
         }
       `}</style>
       <style jsx global>{`

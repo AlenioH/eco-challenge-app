@@ -2,8 +2,8 @@ import {
   selectUsersByStartDate,
   getUsersByIds,
   toggleEmail,
-  getChallengesByIds,
-  getChallengeById,
+  // getChallengesByIds,
+  // getChallengeById,
 } from '../../db';
 import sgMail from '@sendgrid/mail';
 

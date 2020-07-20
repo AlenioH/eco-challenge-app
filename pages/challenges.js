@@ -107,7 +107,7 @@ export default function Challenges(props) {
       <Footer />
       <style jsx>{`
         .containerPage {
-          width: 100vh;
+          width: 100vw;
         }
 
         .container {

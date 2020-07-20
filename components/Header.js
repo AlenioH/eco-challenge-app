@@ -163,7 +163,9 @@ export default function Header() {
           )}
         </div>
 
-        {showMenu === true ? (
+        {showMenu !== true ? (
+          ''
+        ) : (
           <ul className="mobileList">
             <li>
               <Link href="/">
@@ -195,8 +197,6 @@ export default function Header() {
               </Link>
             )}
           </ul>
-        ) : (
-          ''
         )}
       </div>
       {/* <button onClick={() => setModalIsOpen(true)}>Login</button>
@@ -374,6 +374,8 @@ export default function Header() {
           margin-top: -80px;
           display: flex;
           flex-direction: column;
+          height: 100vh;
+          margin: 0;
         }
       `}</style>
       <style jsx global>{`

@@ -48,7 +48,7 @@ export default async function addChallenge(req, res) {
   //because db query return an array we can do=>
   // console.log(res.json(session.length));
 
-  //the logic is like if there is a session existing, means the user is logged in => add challenge
+  //the logic is if there is a session existing, means the user is logged in => add challenge
   //if length of userChallenges is > 0 means the user already added this challenge
   if (session.length !== 0) {
     if (userChallenges.length === 0) {
