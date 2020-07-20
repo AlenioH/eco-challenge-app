@@ -22,9 +22,9 @@ export default function Articles(props) {
               <div className="articleText">
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <Link href={item.url} prefetch={false}>
-                  <a>Keep reading</a>
-                </Link>
+
+                <a href={item.url}>Keep reading</a>
+
                 <p className="source"> Source: {item.source.name}</p>
               </div>
             </div>
@@ -34,7 +34,7 @@ export default function Articles(props) {
       </div>
       <style jsx>{`
         .containerPage {
-          width: 100vh;
+          width: 100%;
         }
         .container {
           width: 90%;

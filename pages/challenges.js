@@ -150,6 +150,11 @@ export default function Challenges(props) {
           background-color: #2f3640;
           transition: background-color 0.3s;
         }
+        .selectMenu {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+        }
 
         @media (max-width: 850px) {
           .containerPage {

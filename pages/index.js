@@ -118,6 +118,9 @@ export default function Home(props) {
       </main>
       <Footer />
       <style jsx>{`
+        * {
+          line-height: 1.3rem;
+        }
         .container {
           width: 100vw;
         }
