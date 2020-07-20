@@ -36,21 +36,23 @@ export default function Challenges(props) {
       </Head>
       <Header />
       <div className="container">
-        <label forHtml="category-select">Choose a category:</label>
+        <div className="selectMenu">
+          <label forHtml="category-select">Choose a category:</label>
 
-        <select
-          name="categories"
-          id="category-select"
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="">--Please choose a category--</option>
-          <option value="all">Show all</option>
-          <option value="general">General</option>
-          <option value="trash">Trash</option>
-          <option value="power">Power</option>
-          <option value="transportation">Transportation</option>
-          <option value="food">Food</option>
-        </select>
+          <select
+            name="categories"
+            id="category-select"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">--Please choose a category--</option>
+            <option value="all">Show all</option>
+            <option value="general">General</option>
+            <option value="trash">Trash</option>
+            <option value="power">Power</option>
+            <option value="transportation">Transportation</option>
+            <option value="food">Food</option>
+          </select>
+        </div>
 
         <ul>
           {category === 'all'
@@ -147,6 +149,31 @@ export default function Challenges(props) {
         button:hover {
           background-color: #2f3640;
           transition: background-color 0.3s;
+        }
+
+        @media (max-width: 850px) {
+          .containerPage {
+            width: 100vh;
+          }
+          .container {
+            width: 100vh;
+          }
+          ul {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+          }
+
+          .selectMenu {
+            margin-top: 200px;
+          }
+
+          .selectMenu > * {
+            font-size: 25px;
+          }
+          * {
+            font-size: 25px;
+          }
         }
       `}</style>
       <style jsx global>{`

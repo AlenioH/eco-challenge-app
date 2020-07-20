@@ -93,6 +93,13 @@ export default function AddChallengeButton(props) {
           color: whitesmoke;
           background-color: #009432;
         }
+
+        @media (max-width: 850px) {
+          button,
+          .showHideCal {
+            font-size: 25px;
+          }
+        }
       `}</style>
     </div>
   );

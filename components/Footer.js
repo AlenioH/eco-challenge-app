@@ -63,7 +63,7 @@ export default function Footer() {
           margin-top: 4rem;
           width: 100%;
           border-top: 1px solid grey;
-          width: 100vh;
+          width: 100%;
         }
         img {
           width: 30px;
@@ -95,7 +95,7 @@ export default function Footer() {
           }
 
           .mobile img {
-            width: 50px;
+            width: 40px;
             margin: 1rem;
           }
         }
