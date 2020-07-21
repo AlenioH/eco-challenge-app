@@ -32,7 +32,7 @@ export default async function addChallenge(req, res) {
       : userChalCompleted < 6
       ? 'Rising rock star'
       : userChalCompleted < 10
-      ? 'Greta Thuneberg'
+      ? 'Greta Thunberg'
       : userChalCompleted >= 10
       ? 'God'
       : '';

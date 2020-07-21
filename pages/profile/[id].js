@@ -304,6 +304,7 @@ export async function getServerSideProps(context) {
   const user = await getUserById(context.params.id);
 
   const userLevel = await getUserLevel(user.id);
+  console.log('userLevel id page', userLevel);
   const userChallenges = (await getChallengeByUserId(user.id)).map((item) => {
     return {
       ...item,
@@ -338,7 +339,7 @@ export async function getServerSideProps(context) {
       userChallenges,
       completedToShow,
       completedChallenges,
-      userLevel: userLevel[0].level,
+      userLevel: userLevel.length > 0 ? userLevel[0].level : 'newbie',
     },
   };
 }
