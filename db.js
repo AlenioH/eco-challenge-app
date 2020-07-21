@@ -195,7 +195,7 @@ export async function insertIntoCompletedChallenges(
   finishDate,
 ) {
   await sql`
-  INSERT INTO completed_challenges(challenge_id, user_id, finish_date) VALUES (${challengeId}, ${userId}, ${finishDate})
+  INSERT INTO completed_challenges(challenge_id, user_id, finish_date, completed_times) VALUES (${challengeId}, ${userId}, ${finishDate}, 1)
   `;
 }
 
@@ -251,5 +251,24 @@ export async function adjustUserLevel(userId, level) {
   level = ${level}
   WHERE user_id = ${userId}
 
+  `;
+}
+
+export async function checkCompletedChallengeExists(challengeId, userId) {
+  const challenges = await sql`
+  SELECT * FROM completed_challenges WHERE challenge_id = ${challengeId} AND user_id = ${userId}`;
+  return challenges;
+}
+
+export async function adjustCompletedChallenges(
+  challengeId,
+  userId,
+  finishDate,
+) {
+  await sql`
+  UPDATE completed_challenges
+  SET finish_date = ${finishDate},
+  completed_times = completed_times + 1
+  WHERE challenge_id = ${challengeId} AND user_id = ${userId}
   `;
 }

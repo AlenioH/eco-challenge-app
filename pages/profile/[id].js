@@ -188,6 +188,15 @@ export default function ProfilePage(props) {
                             )
                             .map((item) => item.finish_date.slice(0, 10))}
                         </p>
+                        <p>
+                          Completed{' '}
+                          {props.completedChallenges
+                            .filter(
+                              (item) => item.challenge_id === challenge.id,
+                            )
+                            .map((item) => item.completed_times)}{' '}
+                          time(s)
+                        </p>
                         {showButtons === true ? (
                           <DeleteChallengeButton
                             challengeId={challenge.id}
