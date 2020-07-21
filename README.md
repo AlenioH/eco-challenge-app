@@ -23,9 +23,9 @@ The shop features following pages and functionality:
 - the header shows the name of the user currently logged in;
 - articles page fetches articles using an API from https://newsapi.org/ and filters them using a key word to show only articles relevant for the topic;
 
-Challenges page: <img src="/public/screenshot1.png" width="500">
+Challenges page: <img src="/public/screenshot1.png" width="700">
 
-Profile page: <img src="/public/screenshot2.png" width="500">
+Profile page: <img src="/public/screenshot2.png" width="700">
 
 ## Technologies used
 
