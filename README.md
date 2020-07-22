@@ -66,6 +66,14 @@ You can run the migrations with the following command:
 To drop the last migration run the following in your terminal:
 `yarn migrate down`
 
+### Scheduler setup instructions
+
+- Sign up for cron-job at https://cron-job.org/en/
+- Open tab 'Cronjobs' and click 'Create cronjob'
+- Copy and paste the link to the API route under URL: http://so-green-eco-challenge.herokuapp.com/api/sendEmail
+- In the 'Schedule' field choose every day at 7 am, add your time zone
+- Hit save
+
 ### Deployment instructions for Heroku
 
 - Sign up for Heroku: https://signup.heroku.com/
