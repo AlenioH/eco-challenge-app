@@ -6,6 +6,7 @@ import {
   getChallengeById,
   insertUserIntoLevels,
   getUserLevel,
+  getChallengeByUserId,
 } from '../../db';
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -36,26 +37,11 @@ export default async function addChallenge(req, res) {
     userId,
   );
 
-  // const userLevelObject = await getUserLevel(userId);
-
-  // //if there are completed challenges, take this number, otherwise insert zero
-  // const userChalCompleted = userLevelObject.challenges_completed
-  //   ? userLevelObject.challenges_completed
-  //   : 0;
-
-  // const userLevel = userLevelObject.level
-  //   ? userLevelObject.level
-  //   : 'Young Padawan';
-
-  // userLevelObject.length === 0
-  //   ? await insertUserIntoLevels(userId, userChalCompleted, userLevel)
-  //   : [];
-
-  // console.log('userlevelllll1133', userLevelObject);
-  // // console.log('userlev', userLevel);
-
-  //60 000 ms in 1 min
-  // 60000 * 60 * 2
+  //-------------------------------------
+  // const timeStampyyy = await getChallengeByUserId(userId);
+  // const stamps = timeStampyyy[0].start_date;
+  const expFinish = moment(startDate).add(challenge[0].days, 'days').toDate();
+  console.log('experiment', expFinish);
 
   const msg = {
     to: user.email,
@@ -77,7 +63,8 @@ export default async function addChallenge(req, res) {
           challengeId,
           session[0].user_id,
           startDate,
-          false, //i set it here to false in case it fails it will be latest sent next day at 7 am and set to true
+          false,
+          expFinish,
         );
         sgMail.send(msg);
       } else {

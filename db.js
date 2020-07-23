@@ -124,9 +124,10 @@ export async function insertUserChallenge(
   userId,
   startDate,
   emailSent,
+  expectedFinish,
 ) {
   return sql`
-  INSERT INTO user_challenges(challenge_id, user_id, start_date, email_sent) VALUES (${challengeId}, ${userId}, ${startDate}, ${emailSent})
+  INSERT INTO user_challenges(challenge_id, user_id, start_date, email_sent, expected_finish) VALUES (${challengeId}, ${userId}, ${startDate}, ${emailSent}, ${expectedFinish})
   `;
 }
 
@@ -225,6 +226,24 @@ export async function toggleEmail(userIds, challengeIds) {
   await sql`
   UPDATE user_challenges
   SET email_sent = true
+  WHERE user_id IN (${userIds}) AND challenge_id IN (${challengeIds})
+  
+  `;
+}
+
+export async function selectUsersByFinishDate() {
+  const usersForLater = await sql`
+  SELECT * FROM user_challenges WHERE finish_date < NOW() 
+  AND second_email_sent = false
+  `;
+  console.log('usersfromquery', usersForLater);
+  return usersForLater;
+}
+
+export async function toggleSecondEmail(userIds, challengeIds) {
+  await sql`
+  UPDATE user_challenges
+  SET second_email_sent = true
   WHERE user_id IN (${userIds}) AND challenge_id IN (${challengeIds})
   
   `;

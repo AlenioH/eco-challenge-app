@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import moment from 'moment';
 // import checkChallenge from '../../components/checkChallenge';
 import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
 import DeleteChallengeButton from '../../components/DeleteChallengeButton';
@@ -332,7 +333,8 @@ export async function getServerSideProps(context) {
 
   const challengesToShow =
     userChallenges.length > 0 ? await getChallengesByIds(chalId) : [];
-  // console.log('challengestoshow prof page', challengesToShow); //if i don't do it like that, the whole profile page crushes when there are no challenges
+  console.log('challengestoshow prof page', challengesToShow);
+  //if i don't do it like that, the whole profile page crushes when there are no challenges
 
   const completedChallenges = await getCompletedChallengesByUserId(user.id);
 
