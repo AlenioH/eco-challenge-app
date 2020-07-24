@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import moment from 'moment';
-// import checkChallenge from '../../components/checkChallenge';
+
 import ChallengeCompletedButton from '../../components/ChallengeCompletedButton';
 import DeleteChallengeButton from '../../components/DeleteChallengeButton';
 import {
@@ -17,29 +16,9 @@ import {
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 export default function ProfilePage(props) {
   // console.log('props from the profile page', props);
-  const [checked, setChecked] = useState(false);
+
   const [showButtons, setShowButtons] = useState(true);
   console.log('user from page', props.user.id);
-
-  // function handleClick(e) {
-  //   setChecked(!checked);
-  // }
-
-  //   <div className="Demo__some-network">
-  //   <FacebookShareButton
-  //     url={shareUrl}
-  //     quote={title}
-  //     className="Demo__some-network__share-button"
-  //   >
-  //     <FacebookIcon size={32} round />
-  //   </FacebookShareButton>
-
-  //   <div>
-  //     <FacebookShareCount url={shareUrl} className="Demo__some-network__share-count">
-  //       {count => count}
-  //     </FacebookShareCount>
-  //   </div>
-  // </div>
 
   fetch('/api/checkSameUser', {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.

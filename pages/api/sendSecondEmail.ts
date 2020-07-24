@@ -2,8 +2,6 @@ import {
   selectUsersByFinishDate,
   getUsersByIds,
   toggleSecondEmail,
-  // getChallengesByIds,
-  // getChallengeById,
 } from '../../db';
 import sgMail from '@sendgrid/mail';
 
@@ -32,7 +30,7 @@ export default async function sendSecondEmail(req, res) {
     subject: 'How did your challenge go?',
     text: `Hey there! The time of your challenge is up. Congratulations on making it! Login under your username and share your experience on social media. Spread the word! Remember: you are a hero! Best, Alenio.`,
     html: `<p>Hey there! <br> The time of your challenge is up. Congratulations on making it!
-    <a href='https://so-green-eco-challenge.herokuapp.com/login'> Login </a> under your username and and share your experience on social media. Spread the word! <br>Remember: you are a hero!<br> Best, Alenio.</p>`,
+    <a href='https://so-green-eco-challenge.herokuapp.com/login'> Login </a> under your username and share your experience on social media. Spread the word! <br>Remember: you are a hero!<br> Best, Alenio.</p>`,
   };
 
   await toggleSecondEmail(userIds, chalIds);
