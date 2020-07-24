@@ -10,7 +10,7 @@ import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function sendSecondEmail(req, res) {
-  const users = await selectUsersByFinishDate();
+  const users = (await selectUsersByFinishDate()) || [];
   console.log('userzzzz', users);
 
   const userIds = users.map((item) => item.user_id); // must be an array [42, 51]

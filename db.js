@@ -233,7 +233,7 @@ export async function toggleEmail(userIds, challengeIds) {
 
 export async function selectUsersByFinishDate() {
   const usersForLater = await sql`
-  SELECT * FROM user_challenges WHERE finish_date < NOW() 
+  SELECT * FROM user_challenges WHERE expected_finish < NOW() 
   AND second_email_sent = false
   `;
   console.log('usersfromquery', usersForLater);
