@@ -298,6 +298,7 @@ export async function getServerSideProps(context) {
     return {
       ...item,
       start_date: item.start_date.toISOString().split('T')[0],
+      expected_finish: item.expected_finish.toISOString().split('T'),
     };
   });
 

@@ -37,11 +37,8 @@ export default async function addChallenge(req, res) {
     userId,
   );
 
-  //-------------------------------------
-  // const timeStampyyy = await getChallengeByUserId(userId);
-  // const stamps = timeStampyyy[0].start_date;
   const expFinish = moment(startDate).add(challenge[0].days, 'days').toDate();
-  console.log('experiment', expFinish);
+  // console.log('experiment', expFinish);
 
   const msg = {
     to: user.email,
@@ -51,7 +48,7 @@ export default async function addChallenge(req, res) {
     html: `<p>Hey there! <br> You signed up for a challenge ${challenge[0].name} : ${challenge[0].description} <br> May the force be with you! <br> Best, Alenio.</p>`,
   };
 
-  //because db query return an array we can do=>
+  //because db queries return an array we can do=>
   // console.log(res.json(session.length));
 
   //the logic is if there is a session existing, means the user is logged in => add challenge
@@ -73,6 +70,7 @@ export default async function addChallenge(req, res) {
           session[0].user_id,
           startDate,
           false,
+          expFinish,
         );
         console.log('email will be sent later');
       }

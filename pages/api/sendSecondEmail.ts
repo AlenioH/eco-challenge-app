@@ -11,14 +11,14 @@ export default async function sendSecondEmail(req, res) {
   const users = (await selectUsersByFinishDate()) || [];
   console.log('userzzzz', users);
 
-  const userIds = users.map((item) => item.user_id); // must be an array [42, 51]
+  const userIds = users.map((item) => item.user_id); //an array [42, 51]
   console.log('userIds for send email', userIds);
 
   const chalIds = users.map((item) => item.challenge_id);
   // console.log('chalIds for send email', chalIds); //[7, 10]
 
   const usersById = users.length > 0 ? await getUsersByIds(userIds) : [];
-  //must be an array of objects
+  // array of objects
   console.log('usersbyId', usersById);
 
   const userEmails = usersById ? usersById.map((item) => item.email) : [];
