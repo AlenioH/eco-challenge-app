@@ -27,7 +27,10 @@ export default function Footer() {
               <img src="/twitter.png" alt="twitter"></img>
             </a>
           </li>
-          <li className="legal">Powered by coffee and kittens. &copy; 2020</li>
+          <li className="legal">
+            Powered by coffee and kittens. Created by Alena Hasslacher. &copy;{' '}
+            {new Date().getFullYear()}
+          </li>
         </ul>
       </div>
 
@@ -55,7 +58,10 @@ export default function Footer() {
             </a>
           </li>
         </ul>
-        <p className="legal">Powered by coffee and kittens. &copy; 2020</p>
+        <p className="legal">
+          Powered by coffee and kittens. Created by Alena Hasslacher. &copy;
+          {new Date().getFullYear()}
+        </p>
       </div>
 
       <style jsx>{`
@@ -80,6 +86,7 @@ export default function Footer() {
         }
         .legal {
           margin-left: auto;
+          font-size: 80%;
         }
 
         @media (max-width: 850px) {
