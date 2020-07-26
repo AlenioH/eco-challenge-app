@@ -141,14 +141,15 @@ export default function Header() {
               <img src="/logo.png" alt="green leaf"></img>
             </a>
           </Link>
-          {user ? (
-            <Link href={'/profile/' + link}>
+
+          {!user ? (
+            ''
+          ) : (
+            <Link href="/profile/[id]" as={'/profile/' + link}>
               <a>
                 <span className="username">{user}</span>
               </a>
             </Link>
-          ) : (
-            ''
           )}
 
           {showMenu === false ? (
