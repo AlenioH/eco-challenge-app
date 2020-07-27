@@ -87,7 +87,7 @@ yarn migrate down
 - Open tab 'Cronjobs' and click 'Create cronjob'
 - Copy and paste the link to the first API route under URL: http://so-green-eco-challenge.herokuapp.com/api/sendEmail
 - In the 'Schedule' field choose every day at 7 am, add your time zone
-- For the second email use the link Copy and paste the link to the API route under URL: http://so-green-eco-challenge.herokuapp.com/api/sendSecondEmail and set schedule to daily at 7 pm
+- For the second email use the link http://so-green-eco-challenge.herokuapp.com/api/sendSecondEmail and set schedule to daily at 7 pm
 - Hit save
 
 ### Deployment instructions for Heroku
